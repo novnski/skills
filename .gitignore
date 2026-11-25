@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+
+# Output the skills' own scripts write when they are run inside this repository
+.interface-design/
