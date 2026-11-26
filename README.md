@@ -1,10 +1,24 @@
 # Skills
 
-Agent skills by [novnski](https://github.com/novnski), in the [Agent Skills](https://agentskills.io/) format. Install them into Codex, Claude Code, Cursor and other coding agents with the [`skills`](https://github.com/vercel-labs/skills) CLI.
+Open-source skills by [novnski](https://github.com/novnski) for Codex, Claude Code, Cursor and other coding agents. Each package in [`skills/`](skills/) follows the [Agent Skills format](https://agentskills.io/) and contains a `SKILL.md` instruction file, plus any references or scripts the agent needs.
+
+**[Browse the skills catalog](https://skills.novnski.chatgpt.site/)** to search by task, find a package’s install command and open its guide.
+
+## Available skills
+
+| Package | What it does | Explore |
+| --- | --- | --- |
+| [`better-design`](skills/better-design) | Guides interface design and review, with checks for both the source code and the rendered page. | [Skill guide](https://better-design-skill.novnski.chatgpt.site/) · [Example gallery](https://better-design-skill.novnski.chatgpt.site/examples/) |
 
 ## Install
 
-Run this from your project:
+From your project, list the available packages with the [`skills` CLI](https://github.com/vercel-labs/skills).
+
+```bash
+npx skills@latest add novnski/skills --list
+```
+
+To install a single skill, pass its package name with `--skill`. This example installs Better Design.
 
 ```bash
 npx skills@latest add novnski/skills --skill better-design
@@ -13,9 +27,6 @@ npx skills@latest add novnski/skills --skill better-design
 The CLI asks which agents to install to. Add `-g` to install for every project, or `-a codex` to name the agent up front.
 
 ```bash
-# See what this repository offers
-npx skills@latest add novnski/skills --list
-
 # Install every skill
 npx skills@latest add novnski/skills
 
@@ -25,13 +36,7 @@ npx skills@latest update
 
 The CLI needs Node.js 22.20 or later.
 
-## Skills
-
-| Skill | What it is for |
-|---|---|
-| [better-design](skills/better-design) | Interfaces that look decided, not generated: a method, a craft floor, and two scripts that check the result. |
-
-### better-design
+## Better Design
 
 ![Nine first screens built with the skill: a coffee shop, a music festival, a museum exhibition, a synthesizer launch, a bike repair shop, an accountancy, scheduling software, API documentation and a dispatch dashboard](.github/assets/better-design-examples.jpg)
 
