@@ -97,7 +97,7 @@ else say("PASS", "fonts not loaded", "every named font is loaded or is a system 
 
 // Faces that generated pages reach for whatever the subject (references/typography.md, "Reflex picks")
 const REFLEX = ["dm sans", "dm serif", "space grotesk", "space mono", "playfair display", "fraunces", "newsreader", "lora", "cormorant", "instrument serif", "instrument sans", "plus jakarta sans", "outfit", "manrope", "poppins", "montserrat",
-  "syne", "bricolage grotesque", "sora", "urbanist", "barlow condensed", "bebas neue", "anton", "oswald", "chivo"];
+  "syne", "bricolage grotesque", "sora", "urbanist", "barlow condensed", "bebas neue", "anton", "oswald", "chivo", "work sans", "gloock"];
 const reflexUsed = firsts.filter((f) => REFLEX.some((r) => f.toLowerCase().startsWith(r)) && !brandFonts.includes(f.toLowerCase()));
 say(reflexUsed.length ? "FAIL" : "PASS", "reflex typefaces", reflexUsed.length ? `${list(reflexUsed)}: among the faces generated pages use whatever the subject. Find one from this subject's own lettering (references/typography.md, "Finding a face"). If the user or an existing brand supplied it, run again with --brand-font "${reflexUsed[0]}".` : "none of the usual faces");
 
@@ -133,13 +133,32 @@ if (colorTokens) {
 } else say("NOTE", "tinted neutrals", "no color tokens found, so the neutrals could not be checked. Define colors as custom properties first.");
 
 // ---- the accent against the brief
-// The design record carries one line, "Accent: <word>": the hue the letter count selected, "none", or "supplied" when
+// The design record carries one line, "Accent: <word>": the hue the count selected, "none", or "supplied" when
 // the user or a brand gave the color. Each hue has a core range of OKLCH hue angles. Two bands belong to no hue,
 // because they are where a generated page lands whatever was asked for: 31 to 44 (vermilion, coral, rust) and
 // 109 to 124 (lime). The accent is the hue token the stylesheet uses most; status colors are left out.
 const CORE = { red: [[350, 360], [0, 30]], orange: [[45, 72]], yellow: [[80, 108]], green: [[125, 170]], teal: [[170, 210]], blue: [[210, 270]], purple: [[270, 320]], pink: [[320, 350]] };
 const inCore = (fam, h) => CORE[fam].some(([a, b]) => h >= a && h <= b);
 const rangeOf = (fam) => fam === "red" ? "350 to 30" : `${CORE[fam][0][0]} to ${CORE[fam][0][1]}`;
+// ---- the count that chooses the direction. The Chosen line quotes the first sentence of the request, gives its number
+// of words, and names the direction: remainder 0 is (a), 1 is (b), 2 is (c). The request is the one thing the builder did
+// not write. A name it made up could be made to fit, which is how six one-line requests came out with one first screen.
+{
+  let base = root; try { if (!(await stat(root)).isDirectory()) base = resolve(root, ".."); } catch {}
+  let chosen = null;
+  try { for (const f of (await readdir(join(base, ".interface-design"))).filter((f) => f.endsWith(".md")).sort()) {
+    const lines = (await readFile(join(base, ".interface-design", f), "utf8")).split(/\r?\n/); const i = lines.findIndex((l) => /^[\s>*_`#-]{0,6}chosen\b/i.test(l));
+    if (i >= 0) { chosen = lines.slice(i, i + 3).join(" "); break; } } } catch {}
+  if (chosen !== null) { const label = "chosen by the count", WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twenty-one", "twenty-two", "twenty-three", "twenty-four", "twenty-five", "twenty-six", "twenty-seven", "twenty-eight", "twenty-nine", "thirty"];
+    const q = chosen.match(/["\u201C]([^"\u201D]{3,})["\u201D]/), sentence = q ? q[1].trim() : "", n = sentence.split(/\s+/).filter((t) => /[A-Za-z0-9]/.test(t)).length;
+    const rest = q ? chosen.slice(chosen.indexOf(q[0]) + q[0].length) : chosen, nums = [...rest.matchAll(/\b(\d{1,3})\b/g)].map((m) => +m[1]).concat(WORDS.map((w, k) => (new RegExp("\\b" + w + "\\b", "i").test(rest) ? k : -1)).filter((k) => k >= 0));
+    const letter = (rest.match(/\(([abc])\)/i) || rest.match(/\b(?:direction|selects|choose[sn]?|picks?)\s+\(?([abc])\b/i) || [])[1], want = "abc"[n % 3];
+    if (!q || n < 3) say("FAIL", label, `the Chosen line does not quote the first sentence of the request. Quote it in quotation marks, give its number of words, and name the direction that number selects: remainder 0 is (a), 1 is (b), 2 is (c). The name is not counted.`);
+    else if (!nums.includes(n)) say("FAIL", label, `the sentence quoted on the Chosen line ("${sentence.slice(0, 60)}${sentence.length > 60 ? "…" : ""}") has ${n} words, and the line gives ${nums.length ? nums.slice(0, 3).join(", ") : "no number"}. ${n} leaves a remainder of ${n % 3}, which selects (${want}). Build that direction.`);
+    else if (letter && letter.toLowerCase() !== want) say("FAIL", label, `${n} words leaves a remainder of ${n % 3}, which selects (${want}), and the Chosen line names (${letter.toLowerCase()}). Build direction (${want}), and take the accent and the typefaces by the same number.`);
+    else say("PASS", label, `${n} words in the quoted sentence, remainder ${n % 3}, direction (${want})`);
+  }
+}
 async function declaredAccent() {
   let base = root; try { if (!(await stat(root)).isDirectory()) base = resolve(root, ".."); } catch {}
   const dir = join(base, ".interface-design"); let records = [];
@@ -165,7 +184,7 @@ if (accent.record) {
     candidates.push({ name, lit: lit[0], hue: Math.round(lch[2]) % 360, chroma: lch[1], uses }); }
   const used = candidates.filter((c) => c.uses > 0).sort((a, b) => b.uses - a.uses || b.chroma - a.chroma), top = used[0], label = "accent matches the brief";
   const WORDLIST = `${Object.keys(CORE).join(", ")}`;
-  if (!accent.word) say("FAIL", label, `the design record has no Accent line. Add one line with one word on it: the hue the letter count selected (${WORDLIST}), "none" if the selected name is black, white or gray, or "supplied" if the user or a brand gave the color.`);
+  if (!accent.word) say("FAIL", label, `the design record has no Accent line. Add one line with one word on it: the hue the count selected (${WORDLIST}), "none" if the selected name is black, white or gray, or "supplied" if the user or a brand gave the color.`);
   else if (accent.word === "supplied") say("PASS", label, "the record says the color was supplied by the user or a brand");
   else if (accent.word === "none") say(used.length ? "FAIL" : "PASS", label, used.length ? `the design record says this page has no accent hue, but ${list(used.map((c) => `${c.name} ${c.lit} (${c.uses} use${c.uses > 1 ? "s" : ""})`), 3)} is in use. Black does the accent's work on this page: take the hue out. Change the line only if the count was read wrong.` : "no accent hue, as the record says");
   else if (!top) say("FAIL", label, `the design record says "Accent: ${accent.word}", but no ${accent.word} token is used anywhere in the stylesheet.`);

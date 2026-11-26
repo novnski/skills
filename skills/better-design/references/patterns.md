@@ -2,6 +2,17 @@
 
 The modal answers: what appears on a page when nothing was decided. Section 6 of the skill says how to use this list. Any one of these can be right when it follows from the Rules in the brief. Remove each one that does not.
 
+**The six looks**
+
+Generated pages currently gather around these, whatever the subject. The last three are where a model lands after being told to avoid the first three.
+
+- A white or near-black page with a purple or blue gradient, rounded cards and a centered headline.
+- A cream page with a serif headline, one phrase in italics, and a deep green or terracotta accent.
+- A near-black page with one neon accent and glowing edges.
+- A newspaper look: hairline rules, square corners, small tracked labels in monospace.
+- A poster look: one flat saturated color, heavy condensed type, black boxes and hard shadows.
+- A stationery look: black on yellow or on off-white, with part of the page drawn as a tilted sheet, folder, tag, ticket or receipt, dashed "perforations" and squared paper behind.
+
 **Structure**
 
 - The stock landing sequence, in order, whatever the product: centered hero with a pill badge, headline, subhead and two buttons; logo strip; three feature cards; stats band; testimonial cards; three pricing tiers; FAQ accordion; gradient call-to-action; four-column footer.

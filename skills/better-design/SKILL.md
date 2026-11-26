@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.0.0"
+  version: "1.2.1"
 ---
 
 # Better Design
@@ -49,13 +49,17 @@ Use this form:
 Subject:    what this is, in one plain sentence
 Audience:   who is looking, on what device, in what state
 Job:        the one thing the person must be able to do or understand here, as a verb
-Register:   one word: utility, between, expression or showpiece (section 4)
+Given:      what the request fixes, in its own words: content, look, behavior. These bind.
+Look:       open, or supplied: "<the request's own words for the look>"
+Filled in:  what the request left open and what you decided: the name, the place, the
+            people, the real facts and figures on the page
+Register:   one word: utility, between, expression, showpiece or piece (section 4)
 Default:    the version you would build with no further thought: background, accent hue,
             typefaces, first-screen layout, headline wording
 Directions: three alternatives, one line each, described by what is on the screen:
             palette structure, typeface class and first-screen composition
-Chosen:     the letter count of the name, the direction it selects (see Choosing), and
-            why that direction serves this audience
+Chosen:     the first sentence of the request in quotation marks, its number of words, the
+            direction that number selects (see Choosing), and why it serves this audience
 Differs:    palette structure: <default> -> <chosen>
             typeface class: <default> -> <chosen>
             first-screen composition: <default> -> <chosen>
@@ -63,11 +67,11 @@ Palette:    seen: the three best-known products or businesses in this field, in 
                 they came to mind, each with the one color it is known for
             neutrals: plain gray, warm gray or cool gray
             spent on: the few things that carry the accent
-Accent:     one word: the hue the letter count selected (red, orange, yellow, green,
+Accent:     one word: the hue the count selected (red, orange, yellow, green,
             teal, blue, purple, pink), none, or supplied
 Type:       seen: the lettering on three real things in this field
-            face: the typeface for headings and for text, and what each takes from what you saw
-            from: where it loads from
+            candidates: three faces for headings and three for text, of different designs
+            face: the two the count selects, and what each takes from what you saw
 First screen: what the visitor sees first, how it is arranged, and where the words sit
 Headline:   the main headline, word for word: what this is and who or where it is for
 Action:     the one main action on the first screen: its wording, and the single control
@@ -76,14 +80,18 @@ Concept:    (showpiece only) the one idea the page is built around, in a sentenc
             visitor could repeat to a friend
 Scenes:     (showpiece only) the page as a numbered run of screens: what each one shows
             and what changes from one to the next
-Moment:     (showpiece only) the one authored thing nobody expects from this kind of
-            site: what the visitor does and what happens
+Moment:     (showpiece and piece) the one authored thing nobody expects from this kind
+            of site: what the visitor does and what happens
+Object:     (piece only) the one thing the person acts on, what it shows before they
+            touch it, and what each action changes on it
 Picture:    what the main picture is (the interface, a photograph, a diagram, or none) and
             what it shows that the words cannot
 Shape:      the corner character (sharp, balanced or soft), why it suits this audience,
             and the one button shape
 Rules:      three to five concrete rules the chosen direction imposes on layout, type and color
 ```
+
+**Read the request first.** The Given, Look and Filled in lines decide how good the page can be, whatever the length of the request. `Given` holds everything the request fixes, in its own words, and nothing on it is softened or replaced. `Look` says whether the request names a look: a period, a material, a way of printing or drawing, a named style. If it does, the look is supplied: carry it out at full strength across the whole first screen, and this skill's limits on color, ornament and drawn pictures give way to it. `Filled in` is for a short request. Decide the particulars a detailed one would have brought (a name, a place, the people, real prices and hours), so the page is about this one and not about its category, and list them at hand-over as made up. A one-line request gets the whole method, not a smaller page. Read `references/requests.md` before writing these three lines.
 
 **The Default line matters most.** Your first complete picture of the page is the most common answer for this kind of product. It will feel like a considered choice, because each part has a reason: the subject is calm, so the palette is soft; the audience must trust it, so the type is a serif. Everyone else's page has the same reasons and the same result. Write yours down honestly and specifically, so there is something concrete to depart from. Section 6 lists the handful of looks that generated pages gather around; your Default is probably one of them.
 
@@ -93,7 +101,7 @@ Rules:      three to five concrete rules the chosen direction imposes on layout,
 - Typeface class: neutral sans; grotesque with character; condensed; text serif; display serif; slab; monospace; rounded.
 - First-screen composition: words over a full-width picture or field of color; centered words above the product; the working interface filling the screen with a line of text; type alone at poster scale; left-aligned words above a full-width picture. In every one of these the headline has its row to itself. Text on the left with a picture, a paragraph or a panel on the right is the usual split. It is the Default for every landing page, whatever you wrote on the Default line, so it never counts as a different composition.
 
-A showpiece adds a fourth axis, and its three directions differ on that too. How the page is moved through: a column of sections; full-screen scenes one after another; one pinned scene that changes as the visitor scrolls; a sideways journey; an index the visitor picks from. A column of sections is the Default.
+A showpiece adds a fourth axis, and its three directions differ on that too. How the page is moved through: a column of sections; full-screen scenes one after another; one pinned scene that changes as the visitor scrolls; a sideways journey; an index the visitor picks from. A column of sections is the Default. In a piece the composition axis is where the controls sit, and the order is: (a) on the object, (b) docked along the bottom, (c) docked along one side.
 
 A new hue, or one serif swapped for another, is not a different direction. Every palette structure keeps its neutrals gray: a page where the background, text and borders are all shades of the accent is not on this list.
 
@@ -105,7 +113,7 @@ The Differs lines are the proof. For each axis, name the Default's option and th
 - Its content: mostly numbers, long text, photographs, a single action? Let the dominant material set the layout.
 - A structural device that can apply everywhere: a strict column system, one type treatment, a color rule, a recurring shape or line.
 
-**Choosing.** Left to choose, a model picks the same direction every time, and that is how an accountant, a bike shop and a clinic come out with one layout between them. So the choice is taken out of your hands. Write the three directions first, and make sure you would ship any of them for this audience and this job: replace one you would not. Then count the letters in the product or business name and divide by three. A remainder of 0 selects (a), 1 selects (b), 2 selects (c). Write the count and the result on the Chosen line, and build that direction even if another was your favorite. If the user or an existing brand has already fixed the direction, there is nothing to choose and this step is skipped.
+**Choosing.** Left to choose, a model picks the same direction every time, and that is how an accountant, a bike shop and a clinic come out with one layout between them. So the choice is taken out of your hands, by a number you did not choose. Write the three directions in a fixed order: (a) the words dominate the first screen, (b) one picture or one field of color runs edge to edge with the words on it, (c) the thing itself is shown whole (the product, the interface, the work, the list of what is offered) and the words are small. Make sure you would ship any of them for this audience and this job: replace one you would not. Then count the words in the first sentence of the request, exactly as it was written: a word is whatever stands between spaces. Divide by three. A remainder of 0 selects (a), 1 selects (b), 2 selects (c). Quote the sentence and write the count and the result on the Chosen line, and build that direction even if another was your favorite. The name is not counted: a name you made up can be made to fit, and six one-line requests in a row came out with one first screen that way. `check.mjs` checks the count against the quoted sentence. If the user or an existing brand has already fixed the direction, there is nothing to choose and this step is skipped.
 
 **Rules make it real.** Each rule is something the Default would break: "color appears only on appointment gaps", "every figure is set in the condensed face at three times body size", "nothing is centered", "the schedule grid is the page grid". A direction that produces no such rules is only a label, and the page will come out as the Default wearing it. Carry the rules through the whole piece and keep everything else quiet. One device applied consistently reads as design; five devices read as noise.
 
@@ -113,14 +121,14 @@ The Differs lines are the proof. For each axis, name the Default's option and th
 
 1. Start with black, white and gray. That is a complete base, and most good interfaces are little more than it.
 2. Look. If you can search or browse, find the three best-known products or businesses in this field. Write them on the `seen` line in the order they came to mind, each with the one color it is known for. If you cannot look, write what you know of them. Do this before step 3, and do not swap a name afterwards.
-3. Take the letter count from the Chosen line. A remainder of 0 selects the first name on the `seen` line, 1 the second, 2 the third. The accent is that one's color, and its hue word goes on the Accent line. If its color is black, white or gray, the Accent line says `none`: black does the accent's work (white on a dark page), and color appears only for status and in pictures. If the user or an existing brand supplies a color, the line says `supplied` and the count is skipped.
+3. Take the count from the Chosen line. A remainder of 0 selects the first name on the `seen` line, 1 the second, 2 the third. The accent is that one's color, and its hue word goes on the Accent line. If its color is black, white or gray, the Accent line says `none`: black does the accent's work (white on a dark page), and color appears only for status and in pictures. If the user or an existing brand supplies a color, the line says `supplied` and the count is skipped.
 4. Mix the color so that it is plainly that hue. Asked for red, a model mixes rust; asked for pink, salmon; asked for yellow, lime. Ten test accents in a row, whatever they were called, sat between red and orange. `check.mjs` measures the accent the stylesheet uses most and fails it when its hue is outside the range for the word on the Accent line (in OKLCH: red 350 to 30, orange 45 to 72, yellow 80 to 108, green 125 to 170, teal 170 to 210, blue 210 to 270, purple 270 to 320, pink 320 to 350). The bands between red and orange and between yellow and green belong to no word.
 5. Nothing else is a source. Not a mood: calm, trustworthy, modern and friendly can be argued for any hue. Not the product's name. Not an object: every subject has a yellow sign, a green plant or a red stamp somewhere in it. Not a picture you generated or a thing you drew: its colors were your own choice. Settle the palette first and make any picture in it.
 6. Say where the accent is spent. Everything else stays neutral.
 
 A direction may call for more than an accent: a page flooded with one color, or two colors in tension. That is a palette structure chosen in the brief, and the Palette line names it. A flood is one flat field of color in one or two places, with black or white on top. It is not a tint on everything.
 
-**The Type line.** Typefaces repeat from one generated page to the next as surely as colors do: the same few sans faces, the same few serifs, and a heavy condensed face whenever the page is meant to look bold. A typeface class in the Directions is not a font, and "a sans with character" does not mean the first one that comes to mind. Find the face the way `references/typography.md` describes: look at the lettering the subject already lives with, describe the face you need in plain terms, search a font library by those properties, and compare several candidates set in the real headline. The faces on the reflex list in that file are off the table unless the user or an existing brand supplies them.
+**The Type line.** Typefaces repeat from one generated page to the next as surely as colors do: the same few sans faces, the same few serifs, and a heavy condensed face whenever the page is meant to look bold. A typeface class in the Directions is not a font, and "a sans with character" does not mean the first one that comes to mind. Find the face the way `references/typography.md` describes: look at the lettering the subject already lives with, describe the face you need in plain terms, search a font library by those properties, and compare several candidates set in the real headline. The faces on the reflex list in that file are off the table unless the user or an existing brand supplies them. Then write three candidates for the heading face and three for the text face, and let the count from the Chosen line choose between them as it chose the direction: a remainder of 0 the first, 1 the second, 2 the third.
 
 **The First screen line.** A generated landing page opens the same way almost every time: a small uppercase label above a two-line headline that ends in a full stop, a button beside a text link, and a picture on the right, often with a small interface card pinned to its corner. Eight of nine test pages built with earlier versions of this skill opened that way. Five of 38 well-known sites do. So:
 
@@ -138,16 +146,13 @@ A direction may call for more than an accent: a page flooded with one color, or 
 - Software shows its interface, built in HTML at a size that can be read. No mascot, animal or scene beside it.
 - A product has to be seen. With no photograph supplied, one plain generated photograph stands in, and hand-over says it must be replaced.
 - A place or a service uses real photographs when they are supplied. With none, the page carries no picture: type, facts and layout do the work, and hand-over says which photographs would help and where they would go.
-- A drawing explains something: a diagram, a map, a labeled part. It is never decoration, and never an engraving, etching, woodcut or pen-and-ink scene unless the user asks for illustration or the brand already uses that style.
+- A drawing explains something: a diagram, a map, a labeled part. It is never decoration, and never an engraving, etching, woodcut or pen-and-ink scene unless the Look line is supplied and asks for it, or the brand already uses that style.
 - "None" is a good answer. An empty space is not filled with a prop built from HTML.
 - Nothing on the page is dressed as a physical object. No part of the interface is made to look like a sheet of paper, a folder, a ticket, a tag, a receipt or a note, and none of the trimmings that go with them appear: a block set at an angle, a paperclip, tape, a pin, a stamp, a perforation, a torn or notched edge, squared or dotted paper behind the content. Content sits upright in plain rectangles. The first eight pages built after the old-print drawing was ruled out replaced it with exactly these props on five of them.
 
 **The Shape line.** The stock shape of a generated page is soft: a rounded card around the first screen and around every block, 12 to 22 pixels at the corners, with pill buttons. Half of well-known real sites round their containers and half use some pill buttons, so roundness is not the fault. The fault is that nobody chose it, and that it is the same on a bank, a clinic and a toy shop. So choose it:
 
-- Take the corner character from the subject and pick one row of the radius table in `references/tokens.md`: sharp, balanced or soft. Work tools, reference pages and anything official or technical are sharp. General consumer products are balanced. Things made for play or for children are soft. Soft needs a reason; it is not the starting point.
-- Stay in that row for controls, cards and dialogs alike.
-- A section sits on the page without a box. The first screen is never wrapped in a rounded card; a field of color runs to the edges of the screen.
-- One button shape for the whole product: all pills, or none.
+Take the corner character from the subject, pick one row of the radius table in `references/tokens.md` (it says which subjects take which row), and stay in it for controls, cards and dialogs alike. A section sits on the page without a box, and the first screen is never wrapped in a rounded card. One button shape for the whole product: all pills, or none.
 
 **In utility work** the conventions for navigation, forms and tables are usually right and should stay. Apply the Default line to what the screen contains and emphasizes (the default dashboard, the default row of tiles) and depart from that.
 
@@ -157,7 +162,7 @@ A direction may call for more than an accent: a page flooded with one color, or 
 
 ## 4. Set the register
 
-Every interface sits somewhere between utility and expression. Place it before designing, because the right answer at one end is a mistake at the other. Go by the screen being built, not by the product: a developer tool's landing page is expression, and a fashion brand's order history is utility.
+Every interface sits somewhere between utility and expression. Place it before designing, because the right answer at one end is a mistake at the other. Go by the screen being built, not by the product: a developer tool's landing page is expression, and a fashion brand's order history is utility. And go by what the person does there: works through tasks among other screens (utility), reads and scrolls (between, expression, showpiece), or acts on one object that is the reason to be there (piece).
 
 **Utility:** product screens, dashboards, admin, settings, forms, documentation. People come to do something, often every day. The design should recede. Quality shows as density tuned to the task, strict alignment, quiet surfaces, components that behave identically everywhere, instant feedback and complete states. Personality lives in small places: the typeface, one accent color, the spacing rhythm, the wording of an empty state. Surprising layouts cost these users time.
 
@@ -176,6 +181,8 @@ Spend the extravagance in one place and keep the rest disciplined.
 **Showpiece:** the site for a game, a film, a record, a festival, an exhibition, a fashion collection or a launch, and any page the user asks to be bold, creative or experimental. Here the page is part of the thing it presents, and a tidy landing page with a picture at the top is the failure. A business that sells a service, a tool or everyday goods is expression at most, however proud its owner is. Thirty-three such sites were measured against this skill's own pages (the table is in `references/showpiece.md`): on theirs the largest picture covers a median of 80% of the first screen, on ours 7%; something moves on 21 of theirs and on none of ours; theirs run to 7 screens and ours to 2; and only 4 of theirs set any words above 96px.
 
 So a showpiece is not made by setting the type larger. It is made by letting the thing fill the screen, saying little, unfolding over several screens, and moving. Few real sites do all four at once (6 of the 33; 21 do three), so the four checks together are a target and not a description of the average. Read `references/showpiece.md` before writing a showpiece brief. In a showpiece `look.mjs` lifts the limits on headline size and on a block beside the headline, and adds four checks of its own. Everything else in this skill still holds: one main action, no slogan, no paper props, no decoration that carries nothing.
+
+**Piece:** a game, a toy, an instrument, a kiosk, a configurator, a fitting room, a visualizer, a scoreboard, a studio for making one thing. There is one object, and everything the person does is done to it. Filing it as a product screen is the failure: a header, a page title, the object in a panel, a column of controls beside it. The object fills the first screen from one edge to the opposite edge and carries the look at full strength. The controls sit on it or dock along one edge. It opens finished, and every choice changes it at once. Mark the object's element `data-stage`: `look.mjs` measures it. A showpiece is a site about a thing; a piece is the thing. Read `references/piece.md` before writing a piece brief.
 
 **Between:** commerce, content sites, onboarding, pricing, a docs home page. A clear system with a few expressive moments.
 
@@ -330,16 +337,7 @@ These hold for every register. Details for specific kinds of interface are in `r
 
 These are the modal answers: what appears when nothing was decided. Any one of them can be right when it follows from the Rules in the brief. Unmotivated and combined, they are how an interface announces that it was generated.
 
-Generated pages currently gather around a handful of looks, whatever the subject:
-
-- a white or near-black page with a purple or blue gradient, rounded cards and a centered headline;
-- a cream page with a serif headline, one phrase in italics, and a deep green or terracotta accent;
-- a near-black page with one neon accent and glowing edges;
-- a newspaper look: hairline rules, square corners, small tracked labels in monospace;
-- a poster look: one flat saturated color, heavy condensed type, black boxes and hard shadows;
-- a stationery look: black on yellow or on off-white, with part of the page drawn as a tilted sheet, folder, tag, ticket or receipt, dashed "perforations" and squared paper behind.
-
-They share one opening: text on the left, a picture on the right, a small label above a two-line headline. Each look is right when a brief asks for it. Leaving one for the next is not a decision. The last three are where a model lands after being told to avoid the first three.
+Generated pages currently gather around six looks, whatever the subject. They are listed at the top of `references/patterns.md`, and they share one opening: text on the left, a picture on the right, a small label above a two-line headline. Each look is right when a brief asks for it. Leaving one for the next is not a decision.
 
 Repetition makes a device generic too. Used once it is a decision; used on every section it is a template. That applies to an emphasized phrase inside a headline, an icon in a tile, a card.
 
@@ -377,6 +375,7 @@ Counted by `check.mjs`, from the source:
 | Typefaces from the reflex list in `references/typography.md` that the user or a brand did not supply | 0 |
 | Headings made of two short fragments ("One thing. Another thing.") | 1 per page |
 | The accent the stylesheet uses most, against the word on the brief's Accent line | the same hue |
+| The number on the Chosen line, against the words in the sentence it quotes, and the direction against the remainder | the same |
 
 Counted by `look.mjs` in the Look step, from the rendered page:
 
@@ -408,9 +407,9 @@ Counted by `look.mjs` in the Look step, from the rendered page:
 | Small labels in spaced capitals, outside tables and navigation | 6 at most |
 | Markers written 01, 02, 03 | 2 at most |
 | Captions written as a numbered figure ("FIG. 01") | 0 |
-| Buttons, fields, dialogs and widgets that are not UI SDK parts (a project that keeps its own component library aside) | 0 |
-| `ui-*` tags that are not UI SDK elements | 0 |
+| Buttons, fields, dialogs and widgets that are not UI SDK parts, and `ui-*` tags that are not UI SDK elements (a project that keeps its own component library aside) | 0 |
 | Pages with UI SDK parts that register no agent bridge | 0 |
+| Piece: share of the first screen covered by the one element marked `data-stage`, which runs from one edge of the screen to the opposite edge and holds 80 words at most | 60% or more |
 | Showpiece: share of the first screen covered by its largest picture or film (or the title spanning 70% of the width) | 60% or more |
 | Showpiece: words on the first screen | 80 at most |
 | Showpiece: length of the page | 4 screens or more |
@@ -483,7 +482,9 @@ Tell the user, briefly:
 
 ## References
 
+- `references/requests.md`: reading the request: what it fixes, when it supplies the look, and what to decide when it is short. Read before the first line of the brief.
 - `references/briefs.md`: one test question for each line of the brief. Read after writing a brief.
+- `references/piece.md`: the object, the furniture to leave out, the first frame and pictures that change, for a game, a kiosk, a configurator or any piece. Read before a piece brief.
 - `references/ui-sdk.md`: UI SDK, the default source of behavior for a web front-end: when it applies, how to load it, and what stays with this skill. Read before the first control.
 - `references/showpiece.md`: concept, scenes, the authored moment and motion for a game, film, festival, exhibition or launch page. Read before a showpiece brief.
 - `references/page-types.md`: what quality and failure look like for landing pages, product UI, forms, long-form content, tables and charts, commerce, portfolios, mobile screens and single components. Read the matching section before designing.

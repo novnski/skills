@@ -225,8 +225,16 @@ export const HABITS = `(async () => {
     undefinedTags: uiTags().filter(t => !customElements.get(t)), defined: uiTags().some(t => !!customElements.get(t)), tools: Array.isArray(window.__lookAgentTools) ? [...new Set(window.__lookAgentTools)] : [],
     script: [...document.scripts].some(s => /ui-sdk/.test(s.src)) || performance.getEntriesByType("resource").some(r => /ui-sdk/.test(r.name)) };
 
+  // ---- 12. the stage of a piece: the one element marked data-stage, measured on the first screen
+  scrollTo({ top: 0, left: 0, behavior: "instant" }); await new Promise(r => setTimeout(r, 120));
+  const stages = [...document.querySelectorAll("[data-stage]")];
+  const stage = { count: stages.length };
+  if (stages[0]) { const r = stages[0].getBoundingClientRect(), w = Math.max(0, Math.min(innerWidth, r.right) - Math.max(0, r.left)), h = Math.max(0, Math.min(innerHeight, r.bottom) - Math.max(0, r.top));
+    stage.share = Math.round(100 * w * h / (innerWidth * innerHeight)); stage.spansX = r.left <= 2 && r.right >= innerWidth - 2; stage.spansY = r.top <= 2 && r.bottom >= innerHeight - 2;
+    stage.words = ((stages[0].innerText || "").match(/[A-Za-z]{2,}/g) || []).length; stage.rect = { x: Math.round(r.left), y: Math.round(r.top), width: Math.round(r.width), height: Math.round(r.height) }; }
+
   const outside = dots.filter(d => !d.inData && !d.legend);
-  return { props, acts, show, sections, sdk, dots: { total: dots.length, tintedBox: dots.filter(d => d.tintedBox).map(d => d.text), caveat: dots.filter(d => d.caveat).map(d => d.text), outsideData: outside.map(d => d.text), animated: dots.filter(d => d.animated).length },
+  return { props, acts, show, sections, sdk, stage, dots: { total: dots.length, tintedBox: dots.filter(d => d.tintedBox).map(d => d.text), caveat: dots.filter(d => d.caveat).map(d => d.text), outsideData: outside.map(d => d.text), animated: dots.filter(d => d.animated).length },
     chips: { total: chips.length, caveat: chips.map(txt).filter(t => CAVEAT.test(t)), samples: chips.slice(0, 5).map(txt) },
     aboveHeadings: above, underHeadings: under,
     corners: { buttons: buttons.length, pillButtons: pill.length, otherRounded: buttons.filter(e => !pill.includes(e) && radius(getComputedStyle(e), e.getBoundingClientRect()) >= 3).length, bigRounded: big.length, bigRoundedMax: Math.round(Math.max(0, ...big.map(e => radius(getComputedStyle(e), e.getBoundingClientRect())))), firstScreenBoxed: heroBox ? Math.round(radius(getComputedStyle(heroBox), heroBox.getBoundingClientRect())) : 0 },

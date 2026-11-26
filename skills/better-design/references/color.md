@@ -36,7 +36,7 @@ Using one color is not the fault. Black, white and gray with a single color is h
 In order of authority:
 
 1. **An existing brand.** A logo, a product, packaging or a style guide settles it. Use the exact color and do not adjust it to taste.
-2. **The field, by count.** The three best-known products or businesses in this field, each with the one color it is known for, written down in the order they came to mind. The letter count from the brief's Chosen line selects one of the three, and the accent takes that one's hue in a shade of your own. If that one is black, white or gray, the page has no accent hue. The count is there because a free choice among the three always goes to the same hue.
+2. **The field, by count.** The three best-known products or businesses in this field, each with the one color it is known for, written down in the order they came to mind. The count from the brief's Chosen line selects one of the three, and the accent takes that one's hue in a shade of your own. If that one is black, white or gray, the page has no accent hue. The count is there because a free choice among the three always goes to the same hue.
 3. **A function.** If the screen exists to raise one kind of alert, the alert color may be the only color needed, and there is no separate accent at all.
 
 Things that are not sources:

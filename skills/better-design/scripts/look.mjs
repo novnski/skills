@@ -9,6 +9,9 @@
 //   --asked-for-split  the user's brief or mockup asks for text on one side and a picture on the other
 //   --asked-for-drawing  the user asked for illustration, or the brand already uses an engraved or hatched style
 //   --showpiece        check the page as a showpiece; normally read from "Register: showpiece" in .interface-design/*.md
+// A piece (one object the person acts on: a game, a kiosk, a configurator) is read from "Register: piece" in the same
+// record, and its object is the one element marked data-stage. A line `Look: supplied: "<the request's words>"` there
+// says the request names the look, which allows a drawn picture.
 //   --ui-sdk-ruled-out "<words>"  the user's own words that rule UI SDK out, quoted: they name another component
 //                      library, say no UI SDK, no external libraries, or that the page must work offline, or the work
 //                      restyles a front-end that already exists. The UI SDK check then becomes a NOTE.
@@ -44,13 +47,17 @@ const outDir = resolve(option("--out") || ".interface-design/review");
 // The register the builder declared in the design record. A showpiece (the page for a game, a film, a festival, an
 // exhibition, a launch) lifts three restraint checks and adds three of its own. A line that lists several registers
 // is the form's placeholder, not a declaration.
-const REGISTERS = ["utility", "between", "expression", "showpiece"];
+const REGISTERS = ["utility", "between", "expression", "showpiece", "piece"];
 // Showpiece limits, set from 33 expressive real sites (games, studios, launches, festivals, museums). With these
 // limits 22 of the 33 pass the first-screen check, 18 the word count (their menus and cookie notices are counted),
 // 27 the length and 21 the motion check; 6 pass all four and 21 pass three. Together they are a target.
 const SHOW_PICTURE = 60, SHOW_LINE = 70, SHOW_WORDS = 80, SHOW_SCREENS = 4;
 // Limits for habits of section layout, set by measuring 36 well-known real sites
 const SECTION_SAME = 3, CAP_LABELS = 6;
+// A piece (a game, a kiosk, a configurator: one object the person acts on) is declared by "Register: piece". Its object
+// is the one element marked data-stage. The floor is the showpiece floor; the word limit stops the marker being put on
+// the page instead of the object. Ten builds of pieces measured 30% to 69% (median 42%), and all fit on one screen.
+const STAGE_SHARE = 60, STAGE_WORDS = 80;
 // UI SDK (references/ui-sdk.md). A new web front-end takes its controls from it. A project that already has one of
 // these component libraries keeps it. package.json is looked for in the project folder and up to two folders above
 // (a built "dist" sits inside its project); with a URL, in the current folder.
@@ -68,6 +75,17 @@ async function projectLibraries() {
       return { sdk: deps.some((d) => d.startsWith("@ui-sdk/")), other: deps.find((d) => OTHER_LIBS.test(d)) || (existsSync(join(dir, "components.json")) ? "shadcn/ui" : null) }; } catch { return { sdk: false, other: null }; }
   }
   return { sdk: false, other: null };
+}
+// The Look line of the design record. `Look: supplied: "<the request's words>"` says the request names a look (a period,
+// a material, a way of printing or drawing). Without quoted words it counts as open: a bare word is not a switch.
+async function declaredLook() {
+  if (/^https?:/i.test(target)) return { supplied: false };
+  const dir = join(resolve(target), ".interface-design");
+  let files = []; try { files = (await readdir(dir)).filter((f) => f.endsWith(".md")).sort(); } catch { return { supplied: false }; }
+  for (const f of files) { let text = ""; try { text = await readFile(join(dir, f), "utf8"); } catch { continue; }
+    for (const line of text.split(/\r?\n/)) { const m = line.match(/^[\s>*_`#-]{0,6}look\b[\s*_`:]*(.*)$/i); if (!m) continue;
+      const q = m[1].match(/supplied\b[^"\u201C]*["\u201C]([^"\u201D]{6,})["\u201D]/i); return q ? { supplied: true, words: q[1].trim() } : { supplied: false, bare: /supplied/i.test(m[1]) }; } }
+  return { supplied: false };
 }
 async function declaredRegister() {
   if (flag("--showpiece")) return { name: "showpiece", from: "the --showpiece option" };
@@ -218,7 +236,7 @@ const FIRST_SCREEN = `(() => {
 })()`;
 
 const out = { site, captures: outDir, widths: {} }, lines = []; let failed = 0, broken = false;
-const REG = await declaredRegister(), SHOW = REG.name === "showpiece"; out.register = REG;
+const REG = await declaredRegister(), SHOW = REG.name === "showpiece", PIECE = REG.name === "piece", LOOK = await declaredLook(); out.register = REG; out.look = LOOK;
 const say = (kind, name, text) => { if (kind === "FAIL") failed++; lines.push(`${kind}  ${name.padEnd(22)} ${text}`); };
 const list = (a, n = 4) => a.slice(0, n).join("; ") + (a.length > n ? `; and ${a.length - n} more` : "");
 
@@ -274,12 +292,12 @@ try {
   if (!F || !F.headline) say("NOTE", "first screen", "no h1 is visible on the first screen at 1440 wide");
   else {
     if (F.card) say("NOTE", "card over the picture", `a small card ("${F.card}") is laid over the main picture. If it stands in for the product, show the real interface at a size that can be read.`);
-    if (F.split && SHOW) say("PASS", "first-screen layout", `${F.split} (allowed in a showpiece)`);
+    if (F.split && (SHOW || PIECE)) say("PASS", "first-screen layout", `${F.split} (allowed in a ${REG.name})`);
     else if (F.split) say(flag("--asked-for-split") ? "NOTE" : "FAIL", "first-screen layout", `${F.split}: the arrangement every generated page opens with` + (flag("--asked-for-split") ? " (allowed: the brief asks for it)." : ". Build the arrangement on the brief's First screen line. If the user's own brief or mockup asks for this split, run again with --asked-for-split."));
     else say("PASS", "first-screen layout", F.textOver ? "the headline sits over the picture" : F.picture ? "headline and picture are stacked" : "type and interface, no large picture");
     if (/[.!]$/.test(F.headline) && F.headline.split(" ").length <= 7) say("NOTE", "headline", `"${F.headline}" is a short line ending in a full stop, the shape generated pages favor. 29 of 38 well-known sites end theirs without one, and most say plainly what the product is.`);
     say(F.decorativePicture ? "FAIL" : "PASS", "picture on a work screen", F.decorativePicture ? `"${F.decorativePicture}" sits on a screen that has a data table. A work screen carries no illustration: take it out. If it is something the person works with (a product photo, a map of real routes, a document), mark it up as a <figure> with a caption.` : "none");
-    if (SHOW) say("PASS", "headline size", `${F.px}px (no limit in a showpiece)`);
+    if (SHOW || PIECE) say("PASS", "headline size", `${F.px}px (no limit in a ${REG.name})`);
     else say(F.px > 96 ? "FAIL" : "PASS", "headline size", F.px > 96 ? `${F.px}px at 1440 wide (limit 96px). Of 28 well-known sites measured, none set its main headline larger.` : `${F.px}px`);
     say(F.tracking < -0.06 ? "FAIL" : "PASS", "headline letter spacing", F.tracking < -0.06 ? `${F.tracking}em (no tighter than -0.06em). Letters this close lose their shapes. About -0.02em is usual, and none of 28 well-known sites went past -0.06em.` : `${F.tracking}em`);
     if (F.uppercase) say("NOTE", "headline case", "the main headline is set in capitals. Of 28 well-known sites measured, none did that.");
@@ -322,14 +340,15 @@ try {
       say(manyArrows ? "FAIL" : "PASS", "arrows on controls", manyArrows ? `${A.arrowsFirst.length} control${A.arrowsFirst.length === 1 ? "" : "s"} on the first screen and ${A.arrowsPage} of ${A.actionControls} on the page end in an arrow (${quote(A.arrowsFirst, 4)}). Two or more on a first screen appears on 2 of 39 well-known sites. A button needs no arrow; keep at most one, where it says something: the link leaves the site, or the button moves to the next step.` : `${A.arrowsFirst.length} on the first screen, ${A.arrowsPage} on the page`);
       if (A.slogan) say("FAIL", "slogan headline", `"${A.slogan}" is a slogan shape and names no kind of product, service or place. Cover the logo: would a stranger know what this is? Say what it is and who or where it is for.`); else say("PASS", "slogan headline", "the main headline is not one of the stock slogan shapes");
       say(A.italicHeads.length ? "FAIL" : "PASS", "italics in headings", A.italicHeads.length ? `${A.italicHeads.length} heading${A.italicHeads.length > 1 ? "s carry" : " carries"} an italic fragment (${quote(A.italicHeads, 3)}). One of 39 well-known sites does that. Set the whole heading in one style.` : "no heading mixes in an italic fragment");
-      if (A.beside && SHOW) say("PASS", "beside the headline", "a block shares the headline's row (allowed in a showpiece)");
+      if (A.beside && (SHOW || PIECE)) say("PASS", "beside the headline", `a block shares the headline's row (allowed in a ${REG.name})`);
       else if (A.beside && !F.split) say(flag("--asked-for-split") ? "NOTE" : "FAIL", "beside the headline", `the main headline sits on the left with a block beside it ("${A.beside}"): the arrangement the last builds all shared. 10 of 39 well-known sites do this; most give the headline its row to itself. Do the same here and put this under it` + (flag("--asked-for-split") ? " (allowed: the brief asks for it)." : "."));
       else if (!F.split) say("PASS", "beside the headline", "the main headline has its row to itself");
       const I = A.icons, offMany = I.off.length >= 3 && I.off.length > 0.2 * I.inline;
       say(offMany ? "FAIL" : "PASS", "icon alignment", offMany ? `${I.off.length} of ${I.inline} icons sit more than 2.5px off the middle of the text beside them (${quote(I.off, 4)}). Center each icon on its line of text.` : `${I.inline} icons beside text, ${I.off.length} off the line`);
       const Z = H.sections;
       if (Z) {
-        say(Z.strip ? "FAIL" : "PASS", "facts strip", Z.strip ? `a band of short facts sits directly under the first screen ("${Z.strip}"). It is a stats bar, the same on every generated page, and most of what it holds is not what the visitor came for. Put the one or two facts that decide a visit (when, where, how much) in the first screen as a plain line, move the rest to the section they belong to, and delete what is left.` : "no band of facts under the first screen");
+        if (PIECE && Z.strip) say("PASS", "facts strip", `a status line sits by the object ("${Z.strip.slice(0, 60)}"): allowed in a piece, where a score, a price or a total docks beside it`);
+        else say(Z.strip ? "FAIL" : "PASS", "facts strip", Z.strip ? `a band of short facts sits directly under the first screen ("${Z.strip}"). It is a stats bar, the same on every generated page, and most of what it holds is not what the visitor came for. Put the one or two facts that decide a visit (when, where, how much) in the first screen as a plain line, move the rest to the section they belong to, and delete what is left.` : "no band of facts under the first screen");
         const side = Z.sideBySide.length, headed = side + Z.centered + Z.above, same = side >= SECTION_SAME && side * 2 > headed;
         say(same ? "FAIL" : "PASS", "section layout", same ? `${side} of ${headed} sections put the heading on the left and the content on the right (${quote(Z.sideBySide, 4)}). One arrangement repeated down the page is a template. Keep it for at most ${SECTION_SAME - 1}, and give the others their own: heading above, centered, or no heading where the content speaks for itself.` : `${side} of ${headed} sections put the heading on the left with the content on the right`);
         say(Z.boxedMarks.length ? "FAIL" : "PASS", "boxed marks", Z.boxedMarks.length ? `${Z.boxedMarks.length} ${Z.boxedMarks.length > 1 ? "marks each sit" : "mark sits"} in a small tinted or bordered box (${list([...new Set(Z.boxedMarks)], 4)}). A number in a box is a number pretending to be an icon, and a frame adds nothing to an icon. Take the box away: a step is numbered in plain text, and an icon stands beside its label.` : "no number or icon is set in a box of its own");
@@ -355,6 +374,14 @@ try {
           else if (noBridgeWords && NO_BRIDGE.test(noBridgeWords)) say("NOTE", bridge, `no agent bridge. Not required here, on the user's words: "${noBridgeWords.slice(0, 140)}". Repeat them at hand-over.`);
           else say("FAIL", bridge, `the controls are UI SDK parts, but the page registers nothing for an agent, so an agent still cannot read or use them. Create the library's bridge (createAgent) and register it (registerTools), in the same bundle as the components: see "The agent bridge" in references/ui-sdk.md. The copy of the library on ui-sdk.dev has no bridge, so a page with no build step bundles the packages into one local file.${noBridgeWords !== null ? ` --no-agent-bridge was given, but ${noBridgeWords ? `"${noBridgeWords.slice(0, 100)}" does` : "no words came with it, and that does"} not say the user ruled agents out.` : ""}`);
         }
+      }
+      if (PIECE) { const T = H.stage || { count: 0 }, label = "piece: the object";
+        if (!T.count) say("FAIL", label, "the design record says this is a piece, and no element is marked data-stage. Put that attribute on the one element that is the object: the thing the person acts on. See references/piece.md.");
+        else if (T.count > 1) say("FAIL", label, `${T.count} elements are marked data-stage. A piece has one object: mark that element only.`);
+        else if (T.words > STAGE_WORDS) say("FAIL", label, `the element marked data-stage holds ${T.words} words of text (limit ${STAGE_WORDS}). That is the page, not the object. Mark the object itself, and let it take the screen.`);
+        else if (T.share < STAGE_SHARE) say("FAIL", label, `the object covers ${T.share}% of the first screen (floor ${STAGE_SHARE}%). At that size it is one panel of a product screen. Take out the header band, the page title and the box around it, let the object fill the screen, and put the controls on it or in one dock along an edge.`);
+        else if (!T.spansX && !T.spansY) say("FAIL", label, `the object covers ${T.share}% of the first screen but sits inside margins on every side. It runs from one edge of the screen to the opposite edge: left to right, or top to bottom.`);
+        else say("PASS", label, `the object covers ${T.share}% of the first screen and runs ${T.spansX && T.spansY ? "to every edge" : T.spansX ? "from the left edge to the right" : "from the top edge to the bottom"}`);
       }
       if (SHOW && H.show) { const S = H.show, pic = S.picture ? S.picture.share : 0, dominant = pic >= SHOW_PICTURE || S.widestLine >= SHOW_LINE;
         say(dominant ? "PASS" : "FAIL", "showpiece: first screen", dominant ? (pic >= SHOW_PICTURE ? `a ${S.picture.kind} covers ${pic}% of the first screen` : `the title spans ${S.widestLine}% of the width`) : `nothing dominates the first screen: the largest picture covers ${pic}% of it and the widest line of the title spans ${S.widestLine}% of the width. Let the art, the film or the object fill the screen (${SHOW_PICTURE}% or more), or set the title across the full width (${SHOW_LINE}% or more).`);
@@ -397,10 +424,15 @@ try {
   await evaluate('scrollTo({ top: 0, left: 0, behavior: "instant" })'); await sleep(200);
   const pictures = await evaluate(`[...document.querySelectorAll("body *")].filter(e => { const r = e.getBoundingClientRect(); if (r.width < 40 || r.height < 40 || r.top >= innerHeight || r.bottom <= 0) return false; const t = e.tagName.toLowerCase(); return ["img", "video", "canvas", "picture"].includes(t) || /url\\(/.test(getComputedStyle(e).backgroundImage); }).map(e => { const r = e.getBoundingClientRect(); return { x: Math.max(0, r.left), y: Math.max(0, r.top), width: Math.min(innerWidth, r.right) - Math.max(0, r.left), height: Math.min(innerHeight, r.bottom) - Math.max(0, r.top) }; })`);
   out.pictures = pictures || [];
-  // A drawing in hatched, engraved or woodcut linework, by the density of sharp light-dark jumps inside the picture
-  const HATCHED = 5, drawn = out.pictures.filter((r) => r.width * r.height >= 0.03 * 1440 * 900 && r.width * r.height < 0.9 * 1440 * 900).map((r) => ({ ...r, ...pictureTexture(join(outDir, "desktop.png"), r) })).filter((r) => r.edges >= HATCHED);
+  // A drawing in hatched, engraved or woodcut linework: sharp light-dark jumps inside the picture, on a flat ground.
+  // A photograph of leaves or film grain jumps as often, but it runs to its own edges, so the ground test leaves it out.
+  const HATCHED = 5, GROUND = 45, drawn = out.pictures.filter((r) => r.width * r.height >= 0.03 * 1440 * 900 && r.width * r.height < 0.9 * 1440 * 900).map((r) => ({ ...r, ...pictureTexture(join(outDir, "desktop.png"), r) })).filter((r) => r.edges >= HATCHED && r.ground >= GROUND);
   out.hatchedPictures = drawn;
-  if (drawn.length) say(flag("--asked-for-drawing") ? "NOTE" : "FAIL", "old-print drawing", `${drawn.length} picture${drawn.length > 1 ? "s" : ""} on the first screen ${drawn.length > 1 ? "are" : "is"} drawn in hatched or engraved linework` + (flag("--asked-for-drawing") ? " (allowed: the user asked for illustration)." : `. That is the picture a generated page reaches for. Follow the brief's Picture line: the interface for software, a plain photograph for a product, no picture for a place or service without photographs. If the user asked for illustration or the brand uses this style, run again with --asked-for-drawing.`));
+  const stageRect = PIECE && out.habits && out.habits.stage && out.habits.stage.rect, inStage = (r) => stageRect && r.x >= stageRect.x - 2 && r.y >= stageRect.y - 2 && r.x + r.width <= stageRect.x + stageRect.width + 2 && r.y + r.height <= stageRect.y + stageRect.height + 2;
+  const loose = drawn.filter((r) => !inStage(r));
+  if (drawn.length && !loose.length) say("PASS", "old-print drawing", `${drawn.length} drawn picture${drawn.length > 1 ? "s are" : " is"} part of the piece's object`);
+  else if (drawn.length && LOOK.supplied) say("NOTE", "old-print drawing", `${drawn.length} picture${drawn.length > 1 ? "s" : ""} on the first screen ${drawn.length > 1 ? "are" : "is"} drawn in hatched or engraved linework. Allowed: the design record says the request supplies the look ("${LOOK.words.slice(0, 120)}"). Repeat those words at hand-over.`);
+  else if (drawn.length) say(flag("--asked-for-drawing") ? "NOTE" : "FAIL", "old-print drawing", `${drawn.length} picture${drawn.length > 1 ? "s" : ""} on the first screen ${drawn.length > 1 ? "are" : "is"} drawn in hatched or engraved linework` + (flag("--asked-for-drawing") ? " (allowed: the user asked for illustration)." : `. That is the picture a generated page reaches for. Follow the brief's Picture line: the interface for software, a plain photograph for a product, no picture for a place or service without photographs. If the user asked for illustration or the brand uses this style, run again with --asked-for-drawing.`));
   else say("PASS", "old-print drawing", "no hatched or engraved drawing on the first screen");
   const m = measure(join(outDir, "desktop.png"), { pictures: pictures || [] });
   out.palette = m;
@@ -412,7 +444,7 @@ try {
   if (flag("--json")) console.log(JSON.stringify(out));
   else {
     console.log(`better-design look: ${target}`);
-    console.log(`register: ${REG.name ? `${REG.name} (from ${REG.from})` : "not declared, so the page is checked as an ordinary page. A showpiece is declared by a line \"Register: showpiece\" in .interface-design/"}\n`);
+    console.log(`register: ${REG.name ? `${REG.name} (from ${REG.from})` : "not declared, so the page is checked as an ordinary page. A showpiece or a piece is declared by a line \"Register: showpiece\" or \"Register: piece\" in .interface-design/"}\n`);
     console.log(lines.join("\n"));
     console.log(`\nCaptures and report.json are in ${outDir}`);
     console.log(`${failed ? failed + " FAIL. Fix these and run it again." : "No FAIL."} Now open desktop.png and phone-full.png and go through the checks in section 7 with your own eyes. This script cannot judge whether the page was designed.`);

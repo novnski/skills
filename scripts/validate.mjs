@@ -70,7 +70,7 @@ for (const folder of folders) {
   const extra = Object.keys(fm).filter((k) => !ALLOWED.includes(k));
   if (extra.length) fail(folder, `frontmatter keys outside the format: ${extra.join(", ")}`);
 
-  const lines = text.split("\n").length;
+  const lines = text.replace(/\r?\n$/, "").split("\n").length; // a final newline ends the last line, it does not start another
   if (lines > 500) warn(folder, `SKILL.md is ${lines} lines (aim for 500 at most)`);
 
   const named = [...new Set([...text.matchAll(/`((?:references|scripts)\/[\w./-]+\.\w+)`/g)].map((m) => m[1]))];

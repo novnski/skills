@@ -2,6 +2,8 @@
 
 For the site of a game, a film, a record, a festival, an exhibition, a fashion collection or a launch, and for any page the user asks to be bold, creative or experimental. The page is part of the thing it presents. Read this before writing the brief.
 
+A showpiece is a site about a thing, and it unfolds over several screens. A game that is played, a kiosk, a configurator or any single object the person acts on is a piece: one screen, and `references/piece.md`.
+
 ## Contents
 
 - What the measurements say

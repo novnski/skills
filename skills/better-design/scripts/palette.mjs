@@ -85,8 +85,11 @@ export function measure(file, { pictures = [] } = {}) {
 }
 
 /**
- * How a picture is drawn, read from a screenshot: the share of neighboring pixels that jump sharply in lightness.
- * Hatching and engraved or woodcut linework give a high share; photographs, flat illustration and interface give a low one.
+ * How a picture is drawn, read from a screenshot.
+ * `edges`: the share of neighboring pixels that jump sharply in lightness. Hatching and engraved or woodcut linework give
+ * a high share. So do photographs of leaves, gravel, hair and film grain.
+ * `ground`: the share of the picture's own edge that is one flat color. A drawing sits on a ground, paper or a field of
+ * color. A photograph runs to its edges. Nine drawings measured 63% to 99%, three photographs 8% to 32%.
  * `rect` is { x, y, width, height } in image pixels.
  */
 export function pictureTexture(file, rect) {
@@ -95,7 +98,13 @@ export function pictureTexture(file, rect) {
   let pairs = 0, jumps = 0;
   for (let y = y0; y < y1; y += 2) { let prev = null; for (let x = x0; x < x1; x++) { const i = (y * width + x) * bpp, l = oklch(data[i], data[i + 1], data[i + 2])[0];
       if (prev !== null) { pairs++; if (Math.abs(l - prev) >= 0.18) jumps++; } prev = l; } }
-  return { edges: pairs ? Math.round((1000 * jumps) / pairs) / 10 : 0 };
+  const rim = [], put = (x, y) => { const i = (y * width + x) * bpp; rim.push([data[i], data[i + 1], data[i + 2]]); };
+  for (let x = x0 + 2; x < x1 - 2; x++) for (const y of [y0 + 2, y0 + 4, y1 - 5, y1 - 3]) if (y > y0 && y < y1) put(x, y);
+  for (let y = y0 + 2; y < y1 - 2; y++) for (const x of [x0 + 2, x0 + 4, x1 - 5, x1 - 3]) if (x > x0 && x < x1) put(x, y);
+  const bins = new Map(); for (const [r, g, b] of rim) { const k = ((r >> 4) << 8) | ((g >> 4) << 4) | (b >> 4), v = bins.get(k) || [0, 0, 0, 0]; v[0]++; v[1] += r; v[2] += g; v[3] += b; bins.set(k, v); }
+  const top = [...bins.values()].sort((p, q) => q[0] - p[0])[0], m = top ? [top[1] / top[0], top[2] / top[0], top[3] / top[0]] : [0, 0, 0];
+  const ground = rim.length ? Math.round((100 * rim.filter(([r, g, b]) => Math.hypot(r - m[0], g - m[1], b - m[2]) <= 24).length) / rim.length) : 0;
+  return { edges: pairs ? Math.round((1000 * jumps) / pairs) / 10 : 0, ground };
 }
 
 function report(m) {

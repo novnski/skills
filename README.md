@@ -42,6 +42,10 @@ The CLI needs Node.js 22.20 or later.
 
 Nine first screens built by a coding agent with this skill, each from a prompt of a few paragraphs. Every brand and all content are invented.
 
+![Six first screens, each built from the one-line prompt printed under it: a coffee roaster, a jazz festival, a cat fishing game, a wedding photographer's portfolio, a candle shop and a gym membership dashboard](.github/assets/better-design-one-line.jpg)
+
+A short prompt is enough. Each of these six came from the one line under it. The skill has the agent decide what the line left open (a name, a place, real prices and hours) and list it as made up when it hands the page over.
+
 Pages made by a coding agent tend to look alike: the same split first screen, the same three cards, the same accent, the same typeface. better-design gives the agent a way to decide what a page should be before it writes code, a floor of craft rules that hold for any interface, and scripts that measure the built page and fail what is generic.
 
 **Use it when**
@@ -52,12 +56,13 @@ Pages made by a coding agent tend to look alike: the same split first screen, th
 
 **How it works**
 
-1. **A brief, saved to a file.** The agent writes down the subject, the audience, the default it would have built, three other directions, and the one it takes, with the headline and the single main action word for word.
-2. **A register.** Utility, expression or showpiece. A settings page and a festival site get different amounts of expression and the same care.
-3. **A craft floor.** Tokens, hierarchy, type, color, space, states, content, motion and accessibility, with reference files for each.
-4. **Count.** `scripts/check.mjs` reads the source and prints PASS or FAIL for about twenty limits, such as font sizes off the scale, reflex typefaces, tinted grays, and an accent that does not match the brief.
-5. **Look.** `scripts/look.mjs` opens the page in a real browser at three widths and runs about forty checks on what only shows once it is rendered, such as contrast, overflow, focus, dead buttons, several buttons that lead to one place, a band of stats under the first screen, and numbers in little boxes.
-6. **Controls that work for people and for agents.** A new web front-end takes the behavior of its controls from [UI SDK](https://github.com/vercel-labs/ui) and connects its agent bridge, so the page has proper keyboard and focus handling and an AI agent can read and use it.
+1. **It reads the request first.** What the request fixes is kept in its own words. A look it names, such as "a 1920s opera palace", is carried out at full strength. What a short request leaves open is decided and written down.
+2. **A brief, saved to a file.** The agent writes down the subject, the audience, the default it would have built, three other directions, and the one it takes, with the headline and the single main action word for word. The direction is picked by a count of the words in the request, so the agent cannot take its favorite layout every time.
+3. **A register.** Utility, expression, showpiece or piece. A settings page and a festival site get different amounts of expression and the same care. A piece is one thing the person acts on, such as a game, a kiosk or a configurator: it fills the screen, and the controls sit on it.
+4. **A craft floor.** Tokens, hierarchy, type, color, space, states, content, motion and accessibility, with reference files for each.
+5. **Count.** `scripts/check.mjs` reads the source and prints PASS or FAIL for about twenty limits, such as font sizes off the scale, reflex typefaces, tinted grays, and an accent that does not match the brief.
+6. **Look.** `scripts/look.mjs` opens the page in a real browser at three widths and runs about forty checks on what only shows once it is rendered, such as contrast, overflow, focus, dead buttons, several buttons that lead to one place, a band of stats under the first screen, and numbers in little boxes.
+7. **Controls that work for people and for agents.** A new web front-end takes the behavior of its controls from [UI SDK](https://github.com/vercel-labs/ui) and connects its agent bridge, so the page has proper keyboard and focus handling and an AI agent can read and use it.
 
 The limits come from measurement. Each suspected habit was counted on generated pages and on dozens of well-known real sites, and a check fails only what real sites almost never do.
 
@@ -71,8 +76,9 @@ The limits come from measurement. Each suspected habit was counted on generated 
 ```
 skills/better-design/
 ├── SKILL.md          the method, the craft floor and the review
-├── references/       briefs, color, typography, copy, interaction, tokens,
-│                     page types, generic patterns, showpiece pages, UI SDK
+├── references/       reading the request, briefs, color, typography, copy,
+│                     interaction, tokens, page types, generic patterns,
+│                     showpiece pages, pieces, UI SDK
 └── scripts/
     ├── check.mjs     counts the limits in the source
     ├── look.mjs      checks the rendered page in a browser
@@ -82,9 +88,10 @@ skills/better-design/
 
 **Limits worth knowing**
 
-- It was developed and tested on OpenAI Codex, across about ninety real builds. It is written for any agent, and is less tested on others.
+- It was developed and tested on OpenAI Codex, across about 120 real builds. It is written for any agent, and is less tested on others.
 - The scripts count; they cannot tell whether a page was designed. The skill says so, and asks the agent to look at its own captures.
 - Ask for the same subject twice and the two pages will be related. Different subjects come out different.
+- Across many sites, a few typefaces still come back more often than they should.
 - UI SDK is in beta. The skill bundles it into the page, and only your own words in the prompt turn it off.
 
 ## Repository layout

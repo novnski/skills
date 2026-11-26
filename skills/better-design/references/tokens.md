@@ -193,6 +193,12 @@ Radius sets character. Pick a row and keep its proportions; do not mix rows.
 - Full pills (`9999px`) suit tags, avatars and toggles. Used on every button and card they become the look of the whole product, so use them that way only as a decision.
 - Full-bleed sections have no radius.
 
+Choosing the row:
+
+- Work tools, reference pages and anything official or technical are sharp.
+- General consumer products are balanced.
+- Things made for play or for children are soft. Soft needs a reason; it is not the starting point.
+
 ## Elevation
 
 Choose how resting surfaces separate, and keep to it:
