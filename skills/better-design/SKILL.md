@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.12.0"
+  version: "1.12.1"
 ---
 
 # Better Design
@@ -293,7 +293,7 @@ These hold for every register. Details for specific kinds of interface are in `r
 - Write real, specific copy. Say what the thing does in the reader's words.
 - A headline says what the product is or does, in words a customer would use. A promise of a feeling (calmer, simpler, smarter, effortless) fits any product, so it describes none. The same goes for the stock slogan shapes: "Your something, on one something", "One something for your whole something", "Something, simplified".
 - Cut filler: seamless, powerful, effortless, elevate, unlock, supercharge, next-generation, "built for modern teams", "everything you need to".
-- Never invent facts: no made-up testimonials, customer logos, user counts, ratings, awards or press quotes. If the page needs them and none were supplied, leave a clearly marked placeholder and say so at hand-over.
+- Never invent facts: no made-up testimonials, customer logos, user counts, ratings, awards or press quotes. If the page needs them and none were supplied, leave that part out and say so at hand-over. A note to the owner ("example number", "local preview", "placeholder") belongs at hand-over and never in the visitor's text.
 - Sample data in product UI is realistic and uneven: plausible names, varied lengths, real-looking dates and amounts, a few awkward cases. No lorem ipsum, "John Doe" or "Item 1".
 - Sentence case for headings and buttons unless the brand does otherwise. One term per concept throughout.
 - No long dashes in headings, labels or buttons. In running text one or two on a page is ordinary; more reads as generated. Use commas, colons and full stops.
@@ -460,7 +460,7 @@ The checks:
 8. **Text.** Any line too long, any orphaned headline word, any text under contrast, anything truncated or overflowing?
 9. **Narrow.** At phone width: nothing overflows, targets are large enough, the order makes sense.
 10. **States.** Hover, focus, pressed and disabled exist. Loading, empty and error exist.
-11. **Content.** No filler, no invented facts, no placeholder text left unmarked.
+11. **Content.** No filler, no invented proof, no placeholder text, and no note about the build in the visitor's text.
 12. **Generic patterns.** Anything from `references/patterns.md` present without a reason from the brief?
 13. **Memory.** If someone left after the first screen, what would they describe an hour later? If the honest answer is a mood, or nothing, the idea is not on the screen yet.
 14. **Color.** Imagine every neutral turned to plain gray. Does the page keep its character? Then point at each colored thing and say what it marks. Anything colored that marks nothing goes back to neutral.
