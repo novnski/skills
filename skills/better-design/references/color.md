@@ -79,16 +79,16 @@ So: look at the field before assuming its color, expect to find several differen
 
 ## Palette structures
 
-Each of these keeps its neutrals gray.
+These are names for what real pages do, so that a use of color can be described. They are not a set to choose from: when the skill offered them as one, every brief proposed the same three whatever the subject. The use of color on a page comes from the subject: from where the real thing the page is arranged like carries its color. Each of these keeps its neutrals gray.
 
-| Structure | What it is | Suits |
-|---|---|---|
-| Gray with one accent | Light gray and white surfaces, near-black text, one hue for actions and selection | Most product interfaces, most sites |
-| Black and white with a spot color | Pure white, pure black, one saturated color used very rarely | Editorial, portfolios, tools that want to feel exact |
-| Dark gray with one accent | Near-black gray surfaces, off-white text, one hue lightened for dark | Media, tools used in dim rooms, a brand that is dark already |
-| One flooded field | A single section or screen in flat color, the rest neutral | Campaigns, launches, brand statements |
-| Two colors in tension | Two unrelated hues, each with its own job, on neutral | Brands built on a pair; before-and-after or two-sided products |
-| A color system | Several hues, each standing for a category the reader must tell apart | Transit maps, calendars, multi-product suites, data-heavy tools |
+| Structure | What it is |
+|---|---|
+| Gray with one accent | Light gray and white surfaces, near-black text, one hue for actions and selection |
+| Black and white with a spot color | Pure white, pure black, one saturated color used very rarely |
+| Dark gray with one accent | Near-black gray surfaces, off-white text, one hue lightened for dark |
+| One flooded field | A single section or screen in flat color, the rest neutral |
+| Two colors in tension | Two unrelated hues, each with its own job, on neutral |
+| A color system | Several hues, each standing for a category the reader must tell apart |
 
 Not on the list: analogous shades of one hue for background, text, borders and accent. That is the wash.
 

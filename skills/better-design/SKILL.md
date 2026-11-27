@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.6.0"
+  version: "1.7.0"
 ---
 
 # Better Design
@@ -57,10 +57,10 @@ Register:   one word: utility, between, expression, showpiece or piece (section 
 Default:    the version you would build with no further thought: background, accent hue,
             typefaces, first-screen layout, headline wording
 Directions: three alternatives, one line each, described by what is on the screen:
-            palette structure, typeface class and first-screen composition
+            use of color, typeface class and first-screen composition
 Chosen:     the first sentence of the request in quotation marks, its number of words, the
             direction that number selects (see Choosing), and why it serves this audience
-Differs:    palette structure: <default> -> <chosen>
+Differs:    use of color: <default> -> <chosen>
             typeface class: <default> -> <chosen>
             first-screen composition: <default> -> <chosen>
 Palette:    seen: the three best-known products or businesses in this field, in the order
@@ -72,7 +72,7 @@ Accent:     one word: the hue the count selected (red, orange, yellow, green,
 Type:       seen: the lettering on three real things in this field
             letters: the five that `scripts/check.mjs --letters "<that sentence>"` prints
             face: one for headings and one for text, both loaded, like what you saw, each name starting with one of the five
-First screen: seen: how three real things in this field are laid out
+First screen: seen: how three real things in this field are laid out, and where each carries its color
             from: the one the count selects; what the visitor sees first, and where the words sit
 Headline:   the main headline, word for word: what this is and who or where it is for
 Action:     the one main action on the first screen: its wording, and the single control
@@ -98,15 +98,15 @@ Rules:      three to five concrete rules the chosen direction imposes on layout,
 
 **Directions must really differ.** Each one differs from the Default, and from the other two, on all three of these:
 
-- Palette structure: light neutral with one accent; a page flooded with one color; dark; black and white with a single spot color; two strong colors in tension; a multi-color system.
+- Color: how much of the first screen it covers and where it sits. Take this from the same real thing the arrangement comes from: where that thing carries its color, and how much of it, the page does too. An earlier version of this line listed six palette structures. Every brief then offered the same three (black and white with a spot of color, a pale page with an accent, a dark one) whatever the subject, the count picked one, and two pages in three came out plain or dark.
 - Typeface class: neutral sans; grotesque with character; condensed; text serif; display serif; slab; monospace; rounded.
-- First-screen composition: taken from the subject, never from a list. An earlier version of this line named five arrangements, and every page came out as one of the five. On the First screen line, write how three real things in this field are laid out: whatever this subject has that people look at or use. Each direction takes its arrangement from one of them, in the order written there. Borrow how the thing is arranged, never what it is made of: no paper, wood or chalk. Text on the left with a picture, a paragraph or a panel on the right is the usual split. It is the Default for every landing page, whatever you wrote on the Default line, so it never counts as a different composition.
+- First-screen composition: taken from the subject, never from a list. An earlier version of this line named five arrangements, and every page came out as one of the five. On the First screen line, write how three real things in this field are laid out and where each carries its color: whatever this subject has that people look at or use. Each direction takes its arrangement from one of them, in the order written there. Borrow how the thing is arranged, never what it is made of: no paper, wood or chalk. Text on the left with a picture, a paragraph or a panel on the right is the usual split. It is the Default for every landing page, whatever you wrote on the Default line, so it never counts as a different composition.
 
 A showpiece adds a fourth axis, and its three directions differ on that too. How the page is moved through: a column of sections; full-screen scenes one after another; one pinned scene that changes as the visitor scrolls; a sideways journey; an index the visitor picks from. A column of sections is the Default. In a piece the composition axis is where the controls sit, and the order is: (a) on the object, (b) docked along the bottom, (c) docked along one side.
 
-A new hue, or one serif swapped for another, is not a different direction. Every palette structure keeps its neutrals gray: a page where the background, text and borders are all shades of the accent is not on this list.
+A new hue, or one serif swapped for another, is not a different direction. Whatever the use of color, the neutrals stay gray: a page where the background, text and borders are all shades of the accent is the wash, and it is out.
 
-The Differs lines are the proof. For each axis, name the Default's option and the chosen direction's option from the lists above. In expressive work all three must change. In between work at least two must. If a line would read the same on both sides of the arrow, the chosen direction is still the Default; pick another.
+The Differs lines are the proof. For each axis, say what the Default does and what the chosen direction does. In expressive work all three must change. In between work at least two must. If a line would read the same on both sides of the arrow, the chosen direction is still the Default; pick another.
 
 **Where directions come from.** From the subject, so look there first:
 
@@ -127,7 +127,7 @@ The Differs lines are the proof. For each axis, name the Default's option and th
 5. Nothing else is a source. Not a mood: calm, trustworthy, modern and friendly can be argued for any hue. Not the product's name. Not an object: every subject has a yellow sign, a green plant or a red stamp somewhere in it. Not a picture you generated or a thing you drew: its colors were your own choice. Settle the palette first and make any picture in it.
 6. Say where the accent is spent. Everything else stays neutral.
 
-A direction may call for more than an accent: a page flooded with one color, or two colors in tension. That is a palette structure like any other, and yours to choose. A flood is one flat field of color in one or two places, with black or white on top. It is not a tint on everything.
+A direction may call for more than an accent: a page flooded with one color, or two colors in tension. That is as sound a choice as a neutral page with one accent, when the thing you took the page from carries its color that way. A flood is one flat field of color in one or two places, with black or white on top. It is not a tint on everything.
 
 **The Type line.** Typefaces repeat from one generated page to the next as surely as colors do: the same few sans faces, the same few serifs, and a heavy condensed face whenever the page is meant to look bold. A typeface class in the Directions is not a font, and "a sans with character" does not mean the first one that comes to mind. Find the face the way `references/typography.md` describes: look at the lettering the subject already lives with, describe the face you need in plain terms, search a font library by those properties, and compare several candidates set in the real headline. The faces on the reflex list in that file are off the table unless the user or an existing brand supplies them. And the search does not start from a shortlist of your own: three candidates of the builder's choosing were the same three on site after site, listed in whatever order put the favorite where the count landed. The request deals five letters instead. Run `scripts/check.mjs --letters` with the sentence quoted on the Chosen line, copy the five letters it prints to the Type line, and take every typeface the page loads from the names that start with one of them. Inside those letters the choice is yours, and you make it for the subject. Outside a utility page both faces are loaded ones: a system font such as Arial can meet the letters, and it makes the page plainer. `check.mjs` deals the letters again and fails a face outside them.
 
@@ -170,7 +170,7 @@ Every interface sits somewhere between utility and expression. Place it before d
 
 - Scale contrast: something very large beside something small. Generic pages make everything medium.
 - One dominant element per screen: a headline set large, a full-bleed image, a working demonstration of the product.
-- Color spent in one decisive place: strict black and white with a single color, or one section flooded with it. Committing to a color does not mean tinting everything with it. The page around the color stays neutral, which is what makes the color read.
+- Color spent in one decisive place, and spent fully there. Committing to a color does not mean tinting everything with it. The page around the color stays neutral, which is what makes the color read.
 - Type as the image: display type with tight leading and deliberately placed line breaks can carry a page that has no pictures.
 - A grid with deliberate breaks: establish columns, then let one element cross them.
 - Rhythm between sections: alternate dense and sparse, light and dark, contained and full-bleed, text-led and image-led.

@@ -126,6 +126,6 @@ if (process.argv[1] && process.argv[1].endsWith("palette.mjs")) {
   if (!files.length) { console.error("usage: node palette.mjs [--json] <screenshot.png> [...]"); process.exit(2); }
   let failed = false;
   for (const f of files) { const m = measure(f); if (m.tinted > 10) failed = true; console.log(json ? JSON.stringify(m) : report(m)); }
-  if (!json) console.log("\nFor scale: the first screens of 32 well-known product and brand sites measured a median of 75% neutral, 1.5% tinted and 6% colored, and 20 of the 32 had under 5% tinted.");
+  if (!json) console.log("\nFor scale: of the first screens of 32 well-known product and brand sites, 20 had under 5% tinted. Tinted is the share to keep low. How much is plainly colored is the design's own decision.");
   process.exit(failed ? 1 : 0);
 }
