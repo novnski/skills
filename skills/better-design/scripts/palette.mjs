@@ -115,9 +115,9 @@ function report(m) {
     "         Find what carries it: neutral tokens above 0.01 chroma, a tinted panel or section, or an illustration printed in the accent's ink.",
     "         Make the neutrals gray, and give pictures their own colors or black and white. A full-color photograph is the one exception.");
   else lines.push(`  PASS   the grays are gray (tinted share ${m.tinted}%, limit 10%).`);
-  if (m.colored > 25) lines.push(`  NOTE   ${m.colored}% of this image is plain color. That is right only if the brief's Palette line names a flooded field or the`, "         screen is mostly photographs.");
+  if (m.colored > 25) lines.push(`  NOTE   ${m.colored}% of this image is plain color. That is right only if the brief's Palette line names a flooded field or the`, "         screen is mostly pictures.");
   const strong = m.families.filter((f) => f.colored >= 1).map((f) => f.name);
-  if (strong.length) lines.push(`  hues with real color on screen: ${strong.join(", ")}. Each one should be named on the Palette line or be a status color or a photograph.`);
+  if (strong.length) lines.push(`  hues with real color on screen: ${strong.join(", ")}. Each one should be named on the Palette line, be a status color, or belong to a picture.`);
   return lines.join("\n");
 }
 

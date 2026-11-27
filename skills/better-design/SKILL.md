@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.13.0"
+  version: "1.14.0"
 ---
 
 # Better Design
@@ -124,7 +124,7 @@ The Differs lines are the proof. For each axis, say what the Default does and wh
 2. Look. If you can search or browse, find the three best-known products or businesses in this field. Write them on the `seen` line in the order they came to mind, each with the one color it is known for. If you cannot look, write what you know of them. Do this before step 3, and do not swap a name afterwards.
 3. Take the count from the Chosen line. A remainder of 0 selects the first name on the `seen` line, 1 the second, 2 the third. The accent is that one's color, and its hue word goes on the Accent line. If its color is black, white or gray, the Accent line says `none`: black does the accent's work (white on a dark page), and color appears only for status and in pictures. If the user or an existing brand supplies a color, the line says `supplied` and the count is skipped.
 4. Mix the color so that it is plainly that hue. Asked for red, a model mixes rust; asked for pink, salmon; asked for yellow, lime. Ten test accents in a row, whatever they were called, sat between red and orange. `check.mjs` measures the accent the stylesheet uses most and fails it when its hue is outside the range for the word on the Accent line (in OKLCH: red 350 to 30, orange 45 to 72, yellow 80 to 108, green 125 to 170, teal 170 to 210, blue 210 to 270, purple 270 to 320, pink 320 to 350). The bands between red and orange and between yellow and green belong to no word.
-5. Nothing else is a source. Not a mood: calm, trustworthy, modern and friendly can be argued for any hue. Not the product's name. Not an object: every subject has a yellow sign, a green plant or a red stamp somewhere in it. Not a picture you generated or a thing you drew: its colors were your own choice. Settle the palette first and make any picture in it.
+5. Nothing else is a source. Not a mood: calm, trustworthy, modern and friendly can be argued for any hue. Not the product's name. Not an object: every subject has a yellow sign, a green plant or a red stamp somewhere in it. Not a picture you generated or a thing you drew: its colors were your own choice. Settle the accent before any picture is made. The picture is not cut down to the palette: it keeps the colors its subject and its medium call for, and the accent may be one of them. (An earlier version said to make any picture in the palette. Nine festival pages in a row then came out as a gray photograph with one colored disc.)
 6. Say where the accent is spent. Everything else stays neutral.
 
 A direction may call for more than an accent: a page flooded with one color, or two colors in tension. That is as sound a choice as a neutral page with one accent, when the thing you took the page from carries its color that way. A flood is one flat field of color in one or two places, with black or white on top. It is not a tint on everything.

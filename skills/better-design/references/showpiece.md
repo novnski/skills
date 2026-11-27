@@ -65,7 +65,7 @@ The concept never dresses the page as an object. No part of it is drawn as a tic
 - The title is the name of the thing. It is not a slogan about it.
 - Navigation does not compete with the picture.
 - Words over a picture sit on its quiet part, with a scrim under them if they need one. Check the contrast on the capture, not in the CSS.
-- With no art supplied, use one generated picture at full bleed, in a manner that suits the subject and copies nobody's artwork, logo or characters, and say at hand-over that it stands in. Name the palette from the brief when you ask for the picture, so the picture arrives in it. Or make the title the picture.
+- With no art supplied, use one generated picture at full bleed, in a manner that suits the subject and copies nobody's artwork, logo or characters, and say at hand-over that it stands in. Or make the title the picture.
 
 ## Scenes
 
@@ -100,7 +100,7 @@ The browser gives you what you need without a library: scroll-driven animations 
 
 - One main action, carried by one control.
 - No paper props, no tilted blocks of words, no italic word inside a heading.
-- The palette is settled on the Palette line before any picture is made, and a generated picture is made in that palette. Art the user supplies brings its own color. The controls and the text stay neutral with the one accent.
+- The picture supplies the color. It comes in the medium and the range of color the idea calls for, and it is not cut down to the page's palette. An earlier version of this line had the picture made in the palette: nine festival pages in a row then came out as a gray photograph with one colored disc, where the page they replaced was a poster in full color. The accent is still settled on the Palette line before the picture is made, and it is not taken from the picture; it may be one of the picture's colors. The controls and the text stay neutral with that one accent. Art the user supplies brings its own color.
 - Two font families at most.
 - Every scene picture has dimensions, alt text and a sensible file size. The first picture loads first; the rest load as they are reached.
 - Facts are looked up, not invented. An unofficial page says so in one plain sentence.
