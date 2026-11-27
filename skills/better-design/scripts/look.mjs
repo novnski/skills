@@ -78,6 +78,16 @@ async function projectLibraries() {
 }
 // The Look line of the design record. `Look: supplied: "<the request's words>"` says the request names a look (a period,
 // a material, a way of printing or drawing). Without quoted words it counts as open: a bare word is not a switch.
+// The Picture line of the design record, as written. A drawing that explains (a diagram, a labeled drawing, a plan, a map)
+// is what the skill asks of a place or a service with no photographs, so the old-print check must not fail it.
+async function declaredPicture() {
+  if (/^https?:/i.test(target)) return "";
+  const dir = join(resolve(target), ".interface-design");
+  let files = []; try { files = (await readdir(dir)).filter((f) => f.endsWith(".md")).sort(); } catch { return ""; }
+  for (const f of files) { let text = ""; try { text = await readFile(join(dir, f), "utf8"); } catch { continue; }
+    for (const line of text.split(/\r?\n/)) { const m = line.match(/^[\s>*_`#-]{0,6}picture\b[\s*_`:]*(.*)$/i); if (m) return m[1].trim(); } }
+  return "";
+}
 async function declaredLook() {
   if (/^https?:/i.test(target)) return { supplied: false };
   const dir = join(resolve(target), ".interface-design");
@@ -236,7 +246,7 @@ const FIRST_SCREEN = `(() => {
 })()`;
 
 const out = { site, captures: outDir, widths: {} }, lines = []; let failed = 0, broken = false;
-const REG = await declaredRegister(), SHOW = REG.name === "showpiece", PIECE = REG.name === "piece", LOOK = await declaredLook(); out.register = REG; out.look = LOOK;
+const REG = await declaredRegister(), SHOW = REG.name === "showpiece", PIECE = REG.name === "piece", LOOK = await declaredLook(), PICTURE = await declaredPicture(), EXPLAINS = /(?<!\b(?:no|not|without|never)\b[^.]{0,14})\b(?:diagrams?|label+ed|elevations?|plans?|maps?|charts?|schematics?|blueprints?|cutaways?|exploded views?)\b/i.test(PICTURE); out.register = REG; out.look = LOOK;
 const say = (kind, name, text) => { if (kind === "FAIL") failed++; lines.push(`${kind}  ${name.padEnd(22)} ${text}`); };
 const list = (a, n = 4) => a.slice(0, n).join("; ") + (a.length > n ? `; and ${a.length - n} more` : "");
 
@@ -432,7 +442,8 @@ try {
   const loose = drawn.filter((r) => !inStage(r));
   if (drawn.length && !loose.length) say("PASS", "old-print drawing", `${drawn.length} drawn picture${drawn.length > 1 ? "s are" : " is"} part of the piece's object`);
   else if (drawn.length && LOOK.supplied) say("NOTE", "old-print drawing", `${drawn.length} picture${drawn.length > 1 ? "s" : ""} on the first screen ${drawn.length > 1 ? "are" : "is"} drawn in hatched or engraved linework. Allowed: the design record says the request supplies the look ("${LOOK.words.slice(0, 120)}"). Repeat those words at hand-over.`);
-  else if (drawn.length) say(flag("--asked-for-drawing") ? "NOTE" : "FAIL", "old-print drawing", `${drawn.length} picture${drawn.length > 1 ? "s" : ""} on the first screen ${drawn.length > 1 ? "are" : "is"} drawn in hatched or engraved linework` + (flag("--asked-for-drawing") ? " (allowed: the user asked for illustration)." : `. That is the picture a generated page reaches for. Follow the brief's Picture line: the interface for software, a plain photograph for a product, no picture for a place or service without photographs. If the user asked for illustration or the brand uses this style, run again with --asked-for-drawing.`));
+  else if (drawn.length && EXPLAINS) say("NOTE", "old-print drawing", `${drawn.length} picture${drawn.length > 1 ? "s" : ""} on the first screen ${drawn.length > 1 ? "are" : "is"} drawn in fine linework. Allowed: the Picture line calls it a drawing that explains ("${PICTURE.slice(0, 110)}"). It has to carry labels that name what it shows. An engraving set beside the headline for decoration is still out.`);
+  else if (drawn.length) say(flag("--asked-for-drawing") ? "NOTE" : "FAIL", "old-print drawing", `${drawn.length} picture${drawn.length > 1 ? "s" : ""} on the first screen ${drawn.length > 1 ? "are" : "is"} drawn in hatched or engraved linework` + (flag("--asked-for-drawing") ? " (allowed: the user asked for illustration)." : `. That is the picture a generated page reaches for. Follow the brief's Picture line: the interface for software, a plain photograph for a product, a drawing that explains (with its labels) for a place or service without photographs. If the user asked for illustration or the brand uses this style, run again with --asked-for-drawing.`));
   else say("PASS", "old-print drawing", "no hatched or engraved drawing on the first screen");
   const m = measure(join(outDir, "desktop.png"), { pictures: pictures || [] });
   out.palette = m;

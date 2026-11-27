@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.5.0"
+  version: "1.5.1"
 ---
 
 # Better Design
