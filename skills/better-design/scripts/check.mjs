@@ -1,9 +1,11 @@
 // Counts the limits from section 7 of the skill in a project's source and prints PASS, FAIL or NOTE for each.
 //
 //   node check.mjs <project folder or file> [<more files or folders> ...] [--brand-font "Family Name"]
+//   node check.mjs --letters "<the first sentence of the request>"
 //
-// --brand-font names a typeface the user or an existing brand supplied, so it is not reported as a reflex choice.
-// It can be given more than once.
+// --brand-font names a typeface the user or an existing brand supplied, so it is not reported as a reflex choice
+// or as outside the request's letters. It can be given more than once.
+// --letters prints the five letters the request deals for its typefaces, and nothing else.
 //
 // It reads .css files, <style> blocks and style attributes in .html, .htm, .vue, .svelte and .astro files, and the
 // text of headings in HTML. It skips node_modules and folders whose name starts with a dot. For a project that
@@ -14,6 +16,19 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import { join, extname, resolve, relative } from "node:path";
 import { oklch, family, NEUTRAL_MAX, COLORED_MIN } from "./palette.mjs";
 
+// ---- the letters a typeface may start with. The request deals them: five of eighteen, from the words of its first
+// sentence. Three candidates of the builder's own choosing were the same three on site after site, in whatever order
+// put the favorite where the count landed. The builder wrote neither this sentence nor this deal.
+// J, Q, U, V, W, X, Y and Z are left out: too few typefaces start with them.
+function dealLetters(sentence) {
+  const s = sentence.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  const rnd = () => { h = (h + 0x6d2b79f5) >>> 0; let t = h; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const pool = [..."ABCDEFGHIKLMNOPRST"]; for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+  return pool.slice(0, 5).sort();
+}
+{ const i = process.argv.indexOf("--letters");
+  if (i >= 0) { const s = process.argv[i + 1] || ""; if (!/[A-Za-z0-9]/.test(s)) { console.error('usage: node check.mjs --letters "<the first sentence of the request>"'); process.exit(2); } console.log(dealLetters(s).join(" ")); process.exit(0); } }
 const argv = process.argv.slice(2), brandFonts = [], args = [];
 for (let i = 0; i < argv.length; i++) { if (argv[i] === "--brand-font") brandFonts.push((argv[++i] || "").toLowerCase()); else args.push(argv[i]); }
 if (!args.length) { console.error('usage: node check.mjs <project folder or file> [...] [--brand-font "Family Name"]'); process.exit(2); }
@@ -155,8 +170,15 @@ const rangeOf = (fam) => fam === "red" ? "350 to 30" : `${CORE[fam][0][0]} to ${
     const letter = (rest.match(/\(([abc])\)/i) || rest.match(/\b(?:direction|selects|choose[sn]?|picks?)\s+\(?([abc])\b/i) || [])[1], want = "abc"[n % 3];
     if (!q || n < 3) say("FAIL", label, `the Chosen line does not quote the first sentence of the request. Quote it in quotation marks, give its number of words, and name the direction that number selects: remainder 0 is (a), 1 is (b), 2 is (c). The name is not counted.`);
     else if (!nums.includes(n)) say("FAIL", label, `the sentence quoted on the Chosen line ("${sentence.slice(0, 60)}${sentence.length > 60 ? "…" : ""}") has ${n} words, and the line gives ${nums.length ? nums.slice(0, 3).join(", ") : "no number"}. ${n} leaves a remainder of ${n % 3}, which selects (${want}). Build that direction.`);
-    else if (letter && letter.toLowerCase() !== want) say("FAIL", label, `${n} words leaves a remainder of ${n % 3}, which selects (${want}), and the Chosen line names (${letter.toLowerCase()}). Build direction (${want}), and take the accent and the typefaces by the same number.`);
+    else if (letter && letter.toLowerCase() !== want) say("FAIL", label, `${n} words leaves a remainder of ${n % 3}, which selects (${want}), and the Chosen line names (${letter.toLowerCase()}). Build direction (${want}), and take the accent by the same number.`);
     else say("PASS", label, `${n} words in the quoted sentence, remainder ${n % 3}, direction (${want})`);
+    if (q && n >= 3) { const hand = dealLetters(sentence), ICON = /icon|symbol|awesome|glyph/i;
+      const named = firsts.filter((f) => !SYSTEM.test(f) && !MONO.test(f) && !ICON.test(f) && !/[()]/.test(f) && !brandFonts.includes(f.toLowerCase()));
+      const out = named.filter((f) => !hand.includes(((f.match(/[A-Za-z]/) || [""])[0]).toUpperCase())), many = out.length > 1;
+      say(out.length ? "FAIL" : "PASS", "letters from the request", out.length
+        ? `${list(out)} ${many ? "do" : "does"} not start with one of the five letters this request deals: ${hand.join(", ")}. Take ${many ? "faces" : "a face"} whose name${many ? "s start" : " starts"} with one of them and that still ${many ? "match" : "matches"} the lettering on the Type line. If the stylesheet calls a face by another name than its own, give the @font-face rule the typeface's own name. If the user or an existing brand supplied it, run again with --brand-font "${out[0]}".`
+        : `${named.length ? list(named) : "no typeface loaded by name"}: inside ${hand.join(" ")}`);
+    }
   }
 }
 async function declaredAccent() {

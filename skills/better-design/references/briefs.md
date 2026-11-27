@@ -17,8 +17,8 @@ This file holds no filled-in brief on purpose. An example brief gets copied: its
 | Accent | One word: the hue of the name the count selects, `none` if that one is black, white or gray, or `supplied`. It is not your favorite of the three, and it does not come from an object or from a picture you made. The color you mix is plainly that hue. |
 | Palette, spent on | The list is short enough to count on one hand. |
 | Type, seen | It names lettering that people in this field actually read: the products they use, the signs and printed matter they see. |
-| Type, candidates | Three faces for headings and three for text, written before the count. They are different designs, none is on the reflex list, and you would ship any of them. |
-| Type, face | The two faces are the ones the count selects from the candidates, and each says what it takes from the lettering you saw. |
+| Type, letters | The five letters that `check.mjs --letters` prints for the sentence quoted on the Chosen line, copied as printed. You did not choose them. |
+| Type, face | Each face has a name that starts with one of the five letters and is not on the reflex list, and each says what it takes from the lettering you saw. |
 | First screen | It says what the visitor sees first and where the words sit. The headline has its row to itself. It is not the Default's arrangement. |
 | Headline | With the logo covered, a stranger could say what is sold and to whom. It would not fit a different kind of business. |
 | Action | It names one action and one control. Nothing else on the first screen leads to the same place. |

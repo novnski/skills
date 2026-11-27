@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.2.1"
+  version: "1.3.0"
 ---
 
 # Better Design
@@ -70,8 +70,8 @@ Palette:    seen: the three best-known products or businesses in this field, in 
 Accent:     one word: the hue the count selected (red, orange, yellow, green,
             teal, blue, purple, pink), none, or supplied
 Type:       seen: the lettering on three real things in this field
-            candidates: three faces for headings and three for text, of different designs
-            face: the two the count selects, and what each takes from what you saw
+            letters: the five that `scripts/check.mjs --letters "<that sentence>"` prints
+            face: one for headings and one for text, like what you saw, each name starting with one of the five
 First screen: what the visitor sees first, how it is arranged, and where the words sit
 Headline:   the main headline, word for word: what this is and who or where it is for
 Action:     the one main action on the first screen: its wording, and the single control
@@ -128,7 +128,7 @@ The Differs lines are the proof. For each axis, name the Default's option and th
 
 A direction may call for more than an accent: a page flooded with one color, or two colors in tension. That is a palette structure chosen in the brief, and the Palette line names it. A flood is one flat field of color in one or two places, with black or white on top. It is not a tint on everything.
 
-**The Type line.** Typefaces repeat from one generated page to the next as surely as colors do: the same few sans faces, the same few serifs, and a heavy condensed face whenever the page is meant to look bold. A typeface class in the Directions is not a font, and "a sans with character" does not mean the first one that comes to mind. Find the face the way `references/typography.md` describes: look at the lettering the subject already lives with, describe the face you need in plain terms, search a font library by those properties, and compare several candidates set in the real headline. The faces on the reflex list in that file are off the table unless the user or an existing brand supplies them. Then write three candidates for the heading face and three for the text face, and let the count from the Chosen line choose between them as it chose the direction: a remainder of 0 the first, 1 the second, 2 the third.
+**The Type line.** Typefaces repeat from one generated page to the next as surely as colors do: the same few sans faces, the same few serifs, and a heavy condensed face whenever the page is meant to look bold. A typeface class in the Directions is not a font, and "a sans with character" does not mean the first one that comes to mind. Find the face the way `references/typography.md` describes: look at the lettering the subject already lives with, describe the face you need in plain terms, search a font library by those properties, and compare several candidates set in the real headline. The faces on the reflex list in that file are off the table unless the user or an existing brand supplies them. And the search does not start from a shortlist of your own: three candidates of the builder's choosing were the same three on site after site, listed in whatever order put the favorite where the count landed. The request deals five letters instead. Run `scripts/check.mjs --letters` with the sentence quoted on the Chosen line, copy the five letters it prints to the Type line, and take every typeface the page loads from the names that start with one of them. Inside those letters the choice is yours, and you make it for the subject. `check.mjs` deals the letters again and fails a face outside them.
 
 **The First screen line.** A generated landing page opens the same way almost every time: a small uppercase label above a two-line headline that ends in a full stop, a button beside a text link, and a picture on the right, often with a small interface card pinned to its corner. Eight of nine test pages built with earlier versions of this skill opened that way. Five of 38 well-known sites do. So:
 
@@ -372,7 +372,7 @@ Counted by `check.mjs`, from the source:
 | Headings or body text set in a color (one emphasized phrase aside) | 0 |
 | Share of color declarations that use a hue, status colors aside | 30% or less |
 | Fonts named first in a stack that the page does not load (system fonts excepted) | 0 |
-| Typefaces from the reflex list in `references/typography.md` that the user or a brand did not supply | 0 |
+| Typefaces on the reflex list in `references/typography.md`, or whose name starts with none of the five letters dealt for the request, that the user or a brand did not supply | 0 |
 | Headings made of two short fragments ("One thing. Another thing.") | 1 per page |
 | The accent the stylesheet uses most, against the word on the brief's Accent line | the same hue |
 | The number on the Chosen line, against the words in the sentence it quotes, and the direction against the remainder | the same |
@@ -495,6 +495,6 @@ Tell the user, briefly:
 - `references/interaction.md`: when and how to animate, states, forms, overlays, touch, long content, browser-drawn parts and what a page needs before it ships. Read when building anything interactive.
 - `references/tokens.md`: token layers with example CSS for color, light and dark themes, spacing, radius, elevation, motion and focus. Read when setting up or extending a design system.
 - `references/reasoning.md`: why the common decisions about surfaces, borders, shadows, inputs, focus, buttons, navigation, overlays, cards and tables work. Read when a value needs adapting or a decision is unclear.
-- `scripts/check.mjs`: counts the limits of section 7 in a project's source and prints PASS or FAIL for each. Run it in the Count step.
+- `scripts/check.mjs`: counts the limits of section 7 in a project's source and prints PASS or FAIL for each. Run it in the Count step. With `--letters` it prints the five letters a request deals for its typefaces.
 - `scripts/look.mjs`: opens the page in a browser, captures it at three widths and checks the rendered result, including the first-screen layout and the small habits (it loads `scripts/habits.mjs`). Run it in the Look step.
 - `scripts/palette.mjs`: measures from a screenshot how much of a screen is neutral, tinted and colored. `look.mjs` runs it for you; use it directly on captures made another way.

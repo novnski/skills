@@ -57,7 +57,7 @@ Pages made by a coding agent tend to look alike: the same split first screen, th
 **How it works**
 
 1. **It reads the request first.** What the request fixes is kept in its own words. A look it names, such as "a 1920s opera palace", is carried out at full strength. What a short request leaves open is decided and written down.
-2. **A brief, saved to a file.** The agent writes down the subject, the audience, the default it would have built, three other directions, and the one it takes, with the headline and the single main action word for word. The direction is picked by a count of the words in the request, so the agent cannot take its favorite layout every time.
+2. **A brief, saved to a file.** The agent writes down the subject, the audience, the default it would have built, three other directions, and the one it takes, with the headline and the single main action word for word. The direction is picked by a count of the words in the request, so the agent cannot take its favorite layout every time. The typefaces work the same way: the request deals five starting letters, and every face on the page has a name that begins with one of them, so the same few faces stop turning up on every site.
 3. **A register.** Utility, expression, showpiece or piece. A settings page and a festival site get different amounts of expression and the same care. A piece is one thing the person acts on, such as a game, a kiosk or a configurator: it fills the screen, and the controls sit on it.
 4. **A craft floor.** Tokens, hierarchy, type, color, space, states, content, motion and accessibility, with reference files for each.
 5. **Count.** `scripts/check.mjs` reads the source and prints PASS or FAIL for about twenty limits, such as font sizes off the scale, reflex typefaces, tinted grays, and an accent that does not match the brief.
@@ -88,10 +88,10 @@ skills/better-design/
 
 **Limits worth knowing**
 
-- It was developed and tested on OpenAI Codex, across about 120 real builds. It is written for any agent, and is less tested on others.
+- It was developed and tested on OpenAI Codex, across about 130 real builds. It is written for any agent, and is less tested on others.
 - The scripts count; they cannot tell whether a page was designed. The skill says so, and asks the agent to look at its own captures.
 - Ask for the same subject twice and the two pages will be related. Different subjects come out different.
-- Across many sites, a few typefaces still come back more often than they should.
+- A typeface the agent favors can still come back when its first letter is dealt, which happens for about one request in four.
 - UI SDK is in beta. The skill bundles it into the page, and only your own words in the prompt turn it off.
 
 ## Repository layout
