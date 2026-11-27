@@ -63,7 +63,7 @@ The concept never dresses the page as an object. No part of it is drawn as a tic
 - The words are the title of the work, one line, and one action. A date or a place that decides whether the visitor stays can sit small at an edge. Everything else waits for the next screen.
 - What waits does not wait in a strip. No band of facts under the first screen: the dates, the price and the numbers go to the scene they belong to.
 - The title is the name of the thing. It is not a slogan about it.
-- Navigation is small: a few words, or a menu button. It does not compete with the picture.
+- Navigation does not compete with the picture.
 - Words over a picture sit on its quiet part, with a scrim under them if they need one. Check the contrast on the capture, not in the CSS.
 - With no art supplied, use one generated picture at full bleed, in a manner that suits the subject and copies nobody's artwork, logo or characters, and say at hand-over that it stands in. Name the palette from the brief when you ask for the picture, so the picture arrives in it. Or make the title the picture.
 

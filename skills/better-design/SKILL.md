@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.10.0"
+  version: "1.11.0"
 ---
 
 # Better Design
@@ -55,7 +55,7 @@ Filled in:  first, the one particular of this business that the page is built on
             else the request left open and you decided: the name, the place, the people, the figures
 Register:   one word: utility, between, expression, showpiece or piece (section 4)
 Default:    the version you would build with no further thought: background, accent hue,
-            typefaces, first-screen layout, headline wording
+            typefaces, navigation, first-screen layout, headline wording
 Directions: three alternatives, one line each, described by what is on the screen:
             use of color, typeface class and first-screen composition
 Chosen:     the first sentence of the request in quotation marks, its number of words, the
@@ -73,7 +73,7 @@ Type:       seen: the lettering on three real things in this field
             letters: the five that `scripts/check.mjs --letters "<that sentence>"` prints
             face: one for headings and one for text, both loaded, like what you saw, each name starting with one of the five
 First screen: seen: how three real things in this field are laid out, and where each carries its color
-            from: the one the count selects; what the visitor sees first, and where the words sit
+            from: the one the count selects; what is seen first, and where the words, the name and the links sit
 Headline:   the main headline, word for word: what this is and who or where it is for
 Action:     the one main action on the first screen: its wording, and the single control
             that carries it
@@ -138,7 +138,7 @@ A direction may call for more than an accent: a page flooded with one color, or 
 - No uppercase or wide-tracked label and no badge above the main headline. If it says something the reader needs, put it in the headline or the line under it.
 - The main headline says what the thing is and who or where it is for: the kind of product, service or place, in the customer's words. Cover the logo and read it alone. If it would fit a different kind of business, it is a slogan, and a business nobody has heard of cannot afford one. It does not need to be two lines, and it does not need a full stop. It is set in one style, with no italic fragment.
 - Where the headline sits, and what sits beside it, under it or behind it, is yours to decide from the thing the arrangement was taken from. One arrangement stays out: text on the left with a picture or a panel on the right. In one test run 8 of 17 pages opened that way whatever the subject, and `look.mjs` fails it.
-- One main action, carried by one control, and it sits with the headline. The navigation then carries links only: a filled button at the end of the top bar is on every generated page. A section linked from the navigation is not linked again a few lines lower.
+- One main action, carried by one control. How a visitor moves around the page is part of the design and yours to decide: where the name sits, whether there is a bar at all, what it holds and where. A bar across the top with the name at the left and a few links beside it is what a build makes when nothing was decided: 26 of 29 test pages had it. Write yours on the Default line, then decide this page's with the rest of the first screen. A section linked from the navigation is not linked again a few lines lower.
 - No band of facts under the first screen. A row of three or four short facts in a strip (figures, a label over each value, capitals with ornaments between) sat under the first screen of 10 of this skill's 16 test pages and of none of 32 well-known sites. It is a stats bar, and with the words moving it would be a marquee. A fact goes where it is used: the one or two that decide a visit (when, where, how much) as a plain line in the first screen, the price beside the buy button, the hours beside the address. The rest is cut.
 
 **The Picture line.** With no photograph to hand, a model generates a picture, and most often a drawing in an old print style: an engraved dog, an etched shopfront, a woodcut tool. It appeared on about two thirds of this skill's test pages, whatever the subject, usually as decoration beside the headline. So decide what the picture is for:

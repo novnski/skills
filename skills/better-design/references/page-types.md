@@ -37,7 +37,7 @@ What the 38 real first screens did instead varied: no arrangement was on more th
 - Explain a few features in depth with a visual each, in place of twelve with an icon each.
 - Proof must be real. With none supplied, leave it out: a page without testimonials beats a page with invented ones.
 - Pricing: plans comparable at a glance, what the price is per, and one plan highlighted only when there is a reason.
-- Few navigation links. Repeat the call to action at the end. The footer is part of the design.
+- Navigation holds what a visitor needs to reach, and it is designed with the page, not set above it as a bar every page has. Repeat the call to action at the end. The footer is part of the design.
 - Section spacing is generous and varies. Text width stays capped however wide the screen.
 - On a phone, the headline fits without shrinking to nothing and the primary action is visible early.
 - Give the largest first-screen image priority (`fetchpriority="high"`) and lazy-load what is below the fold.
@@ -139,7 +139,7 @@ Register: the most expressive.
 - One strong idea in type and layout. Avoid the template structure of hero, about, skill bars, project cards and contact form.
 - A project page says what it was, what you did and what came of it, with large images and a layout that can vary by project.
 - Skip skill percentage bars, the waving-hand greeting, and walls of technology logos.
-- Navigation is minimal, pages are fast, and contact is obvious.
+- Pages are fast, and contact is obvious.
 
 ## Mobile screens
 
