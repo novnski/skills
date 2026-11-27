@@ -165,11 +165,12 @@ const rangeOf = (fam) => fam === "red" ? "350 to 30" : `${CORE[fam][0][0]} to ${
     const lines = (await readFile(join(base, ".interface-design", f), "utf8")).split(/\r?\n/); const i = lines.findIndex((l) => /^[\s>*_`#-]{0,6}chosen\b/i.test(l));
     if (i >= 0) { chosen = lines.slice(i, i + 3).join(" "); break; } } } catch {}
   if (chosen !== null) { const label = "chosen by the count", WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twenty-one", "twenty-two", "twenty-three", "twenty-four", "twenty-five", "twenty-six", "twenty-seven", "twenty-eight", "twenty-nine", "thirty"];
-    const q = chosen.match(/["\u201C]([^"\u201D]{3,})["\u201D]/), sentence = q ? q[1].trim() : "", n = sentence.split(/\s+/).filter((t) => /[A-Za-z0-9]/.test(t)).length;
+    const q = chosen.match(/["\u201C]([^"\u201D]{3,})["\u201D]/), sentence = q ? q[1].trim() : "", toks = sentence.split(/\s+/).filter(Boolean), nAll = toks.length, nPlain = toks.filter((t) => /[A-Za-z0-9]/.test(t)).length;
     const rest = q ? chosen.slice(chosen.indexOf(q[0]) + q[0].length) : chosen, nums = [...rest.matchAll(/\b(\d{1,3})\b/g)].map((m) => +m[1]).concat(WORDS.map((w, k) => (new RegExp("\\b" + w + "\\b", "i").test(rest) ? k : -1)).filter((k) => k >= 0));
+    const n = nums.includes(nPlain) && !nums.includes(nAll) ? nPlain : nAll; // a lone "&" or dash may be counted or left out: both readings are honest
     const letter = (rest.match(/\(([abc])\)/i) || rest.match(/\b(?:direction|selects|choose[sn]?|picks?)\s+\(?([abc])\b/i) || [])[1], want = "abc"[n % 3];
     if (!q || n < 3) say("FAIL", label, `the Chosen line does not quote the first sentence of the request. Quote it in quotation marks, give its number of words, and name the direction that number selects: remainder 0 is (a), 1 is (b), 2 is (c). The name is not counted.`);
-    else if (!nums.includes(n)) say("FAIL", label, `the sentence quoted on the Chosen line ("${sentence.slice(0, 60)}${sentence.length > 60 ? "…" : ""}") has ${n} words, and the line gives ${nums.length ? nums.slice(0, 3).join(", ") : "no number"}. ${n} leaves a remainder of ${n % 3}, which selects (${want}). Build that direction.`);
+    else if (!nums.includes(n)) say("FAIL", label, `the sentence quoted on the Chosen line ("${sentence.slice(0, 60)}${sentence.length > 60 ? "…" : ""}") has ${n} words${nPlain !== nAll ? ` (${nPlain} if a lone symbol is left out)` : ""}, and the line gives ${nums.length ? nums.slice(0, 3).join(", ") : "no number"}. ${n} leaves a remainder of ${n % 3}, which selects (${want}). Build that direction.`);
     else if (letter && letter.toLowerCase() !== want) say("FAIL", label, `${n} words leaves a remainder of ${n % 3}, which selects (${want}), and the Chosen line names (${letter.toLowerCase()}). Build direction (${want}), and take the accent by the same number.`);
     else say("PASS", label, `${n} words in the quoted sentence, remainder ${n % 3}, direction (${want})`);
     if (q && n >= 3) { const hand = dealLetters(sentence), ICON = /icon|symbol|awesome|glyph/i;
@@ -178,6 +179,27 @@ const rangeOf = (fam) => fam === "red" ? "350 to 30" : `${CORE[fam][0][0]} to ${
       say(out.length ? "FAIL" : "PASS", "letters from the request", out.length
         ? `${list(out)} ${many ? "do" : "does"} not start with one of the five letters this request deals: ${hand.join(", ")}. Take ${many ? "faces" : "a face"} whose name${many ? "s start" : " starts"} with one of them and that still ${many ? "match" : "matches"} the lettering on the Type line. If the stylesheet calls a face by another name than its own, give the @font-face rule the typeface's own name. If the user or an existing brand supplied it, run again with --brand-font "${out[0]}".`
         : `${named.length ? list(named) : "no typeface loaded by name"}: inside ${hand.join(" ")}`);
+    }
+  }
+}
+// ---- the subject on the first screen, and loaded typefaces. Outside a utility page the first screen shows the subject
+// and both faces are loaded ones. Direction (a), read as "type alone", turned a page with a labeled drawing into a
+// headline on a flat field on two different builders, and one of them set its reading text in Arial: a system font
+// whose name met the request's letters. Both are read from the design record, where the builder decides them.
+{
+  let base = root; try { if (!(await stat(root)).isDirectory()) base = resolve(root, ".."); } catch {}
+  let rec = null;
+  try { for (const f of (await readdir(join(base, ".interface-design"))).filter((f) => f.endsWith(".md")).sort()) {
+    const t = await readFile(join(base, ".interface-design", f), "utf8"); if (/^[\s>*_`#-]{0,6}register\b/im.test(t)) { rec = t.split(/\r?\n/); break; } } } catch {}
+  if (rec) { const LABEL = (names) => new RegExp("^[\\s>*_`#-]{0,6}(?:" + names + ")\\**\\s*:", "i"), at = (name) => rec.findIndex((l) => LABEL(name).test(l)), val = (i) => (i < 0 ? "" : rec[i].replace(/^[^:]*:\**\s*/, "").trim());
+    const reg = (val(at("register")).match(/utility|between|expression|showpiece|piece/i) || [""])[0].toLowerCase(), pi = at("picture"), ti = at("type");
+    if (reg && reg !== "utility" && reg !== "piece") {
+      if (pi >= 0) { const none = /^["'\u201C(]*(none|no pictures?|no images?|nothing)\b/i.test(val(pi));
+        say(none ? "FAIL" : "PASS", "subject on first screen", none ? `the Picture line says none and the Register is ${reg}. Outside a utility page the first screen shows the subject, not only names it: a photograph for a product, the interface for software, and for a place or a service a drawing that explains (a labeled diagram of the thing worked on, a plan, a map). Name it on the Picture line and put it on the first screen. It is never an engraving, a mascot or a prop.` : "the Picture line names what the first screen shows"); }
+      if (ti >= 0) { let end = rec.findIndex((l, i) => i > ti && LABEL("first screen|headline|action|concept|scenes|picture|object|moment|palette|accent|differs|chosen").test(l)); if (end < 0 || end > ti + 6) end = ti + 6;
+        const seg = rec.slice(ti, end).join(" "), f = seg.search(/\bface\s*:/i);
+        if (f >= 0) { const sys = seg.slice(f).match(/\b(Arial|Helvetica(?: Neue)?|Georgia|Times(?: New Roman)?|Verdana|Tahoma|Trebuchet(?: MS)?|Segoe UI|Courier(?: New)?|system-ui|system (?:UI )?fonts?|SF Pro)\b/i);
+          say(sys ? "FAIL" : "PASS", "loaded typefaces", sys ? `the Type line gives ${sys[0]} as a face. That is a system font, and the Register is ${reg}. Outside a utility page both faces are loaded typefaces whose names start with one of the request's letters (node check.mjs --letters "<the sentence quoted on the Chosen line>").` : "no system font is named as a face"); } }
     }
   }
 }
