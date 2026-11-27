@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.7.0"
+  version: "1.8.0"
 ---
 
 # Better Design
@@ -133,7 +133,7 @@ A direction may call for more than an accent: a page flooded with one color, or 
 
 **The First screen line.** A generated landing page opens the same way almost every time: a small uppercase label above a two-line headline that ends in a full stop, a button beside a text link, and a picture on the right, often with a small interface card pinned to its corner. Eight of nine test pages built with earlier versions of this skill opened that way. Five of 38 well-known sites do. So:
 
-- Decide what the visitor sees first from what is being offered, using the table in `references/page-types.md`: software shows its interface at a readable size, a product shows itself large and whole, a service shows its people and work, a place shows its photograph, hours and address.
+- Decide what the visitor sees first from what is being offered, using the table in `references/page-types.md`. That table says what a visitor needs to see. It does not say how to arrange it.
 - Take the arrangement from the thing the count selects on the First screen line, and compose the first screen as one field: the ground, the words, what shows the subject and the action belong to one picture. A white page with a headline and a box under it is the arrangement every build falls back to. An interface wants the full width.
 - No uppercase or wide-tracked label and no badge above the main headline. If it says something the reader needs, put it in the headline or the line under it.
 - The main headline says what the thing is and who or where it is for: the kind of product, service or place, in the customer's words. Cover the logo and read it alone. If it would fit a different kind of business, it is a slogan, and a business nobody has heard of cannot afford one. It does not need to be two lines, and it does not need a full stop. It is set in one style, with no italic fragment.

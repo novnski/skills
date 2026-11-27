@@ -17,7 +17,7 @@ Register: expression.
 
 Shader effects, 3D scenes, dark pages and glowing accents belong to subjects that are themselves technical. A bakery gets photographs and good type.
 
-When no photographs were supplied, do not fill the gap with a generated drawing. Software still shows its interface. A product gets one plain stand-in photograph, named at hand-over. A place or a service carries no picture, and the facts people came for (prices, hours, the address, who does the work) move up to the first screen.
+When no photographs were supplied, do not fill the gap with a drawing for decoration. Software still shows its interface. A product gets one stand-in photograph, named at hand-over. A place or a service shows a drawing that explains, and the facts people came for (prices, hours, the address, who does the work) move up to the first screen.
 
 **How the first screen is arranged.** A generated landing page opens the same way almost every time: a small uppercase label, a two-line headline that ends in a full stop, a button beside a text link, and a picture on the right. Measured in November 2026 on 38 well-known sites and 9 generated test pages:
 
@@ -27,18 +27,7 @@ When no photographs were supplied, do not fill the gap with a generated drawing.
 | An uppercase or wide-tracked label above the headline | 3 of 38 | 8 of 9 |
 | A headline that ends in a full stop | 9 of 38 | 9 of 9 |
 
-What the 38 real first screens did instead:
-
-| Arrangement | Sites |
-|---|---|
-| Words set over a full-width picture, video or field of color | 11 |
-| Centered words above the product or a picture | 10 |
-| Words with the working interface, and no large picture | 6 |
-| Text on one side, picture on the other | 5 |
-| Left-aligned words above a full-width picture | 3 |
-| Type alone | 2 |
-
-So the split is one arrangement among six and the least common of the main ones. Choose the arrangement from what is being shown: an interface wants width, a product wants to be large and whole, a place wants its photograph across the screen, and a strong sentence can stand alone. Write the choice on the brief's First screen line, and build that. `scripts/look.mjs` fails a first screen that comes out as the split or carries the uppercase label.
+What the 38 real first screens did instead varied: no arrangement was on more than 11 of them. An earlier version of this file listed the arrangements with their counts, and every generated page then came out as one of the listed ones. So the arrangement is not chosen from a stock. It is taken from the subject: from how a real thing in its field is laid out, as the brief's First screen line records. Write the choice on the brief's First screen line, and build that. `scripts/look.mjs` fails a first screen that comes out as the split or carries the uppercase label.
 
 - Build the page from what the visitor needs to know, in the order they need it: what is this, is it for me, why should I believe it, what does it cost, what do I do next. A section exists to answer one of those. Cut sections that answer nothing, and do not follow the stock sequence because it is the sequence.
 - The first screen says what the product is in plain words, shows it, and offers one next step. After five seconds a visitor should be able to say what it does.
