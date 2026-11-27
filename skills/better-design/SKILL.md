@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.8.0"
+  version: "1.9.0"
 ---
 
 # Better Design
@@ -51,8 +51,8 @@ Audience:   who is looking, on what device, in what state
 Job:        the one thing the person must be able to do or understand here, as a verb
 Given:      what the request fixes, in its own words: content, look, behavior. These bind.
 Look:       open, or supplied: "<the request's own words for the look>"
-Filled in:  what the request left open and what you decided: the name, the place, the
-            people, the real facts and figures on the page
+Filled in:  first, the one particular of this business that the page is built on; then what
+            else the request left open and you decided: the name, the place, the people, the figures
 Register:   one word: utility, between, expression, showpiece or piece (section 4)
 Default:    the version you would build with no further thought: background, accent hue,
             typefaces, first-screen layout, headline wording
@@ -114,7 +114,7 @@ The Differs lines are the proof. For each axis, say what the Default does and wh
 - Its content: mostly numbers, long text, photographs, a single action? Let the dominant material set the layout.
 - A structural device that can apply everywhere: a strict column system, one type treatment, a color rule, a recurring shape or line.
 
-**Choosing.** Left to choose, a model picks the same direction every time, and that is how an accountant, a bike shop and a clinic come out with one layout between them. So the choice is taken out of your hands, by a number you did not choose. Write the three directions first: three different ideas for this subject, each described by what is on the screen, and each arranged like one of the three things on the First screen line, in the order written there. In every one the first screen shows the subject and carries its one action. Make sure you would ship any of them for this audience and this job: replace one you would not. Then count the words in the first sentence of the request, exactly as it was written: a word is whatever stands between spaces (a lone symbol such as & may be counted or left out). Divide by three. A remainder of 0 selects (a), 1 selects (b), 2 selects (c). Quote the sentence and write the count and the result on the Chosen line, and build that direction even if another was your favorite. The name is not counted: a name you made up can be made to fit, and six one-line requests in a row came out with one first screen that way. `check.mjs` checks the count against the quoted sentence. If the user or an existing brand has already fixed the direction, there is nothing to choose and this step is skipped.
+**Choosing.** Left to choose, a model picks the same direction every time, and that is how an accountant, a bike shop and a clinic come out with one layout between them. So the choice is taken out of your hands, by a number you did not choose. Write the three directions first: three different ideas for this subject, each described by what is on the screen, and each arranged like one of the three things on the First screen line, in the order written there. Each is built on a particular of this one business, from the Given line or the Filled in line. A direction that would fit any business of its kind is the Default again, whatever it looks like. In every one the first screen shows the subject and carries its one action. Make sure you would ship any of them for this audience and this job: replace one you would not. Then count the words in the first sentence of the request, exactly as it was written: a word is whatever stands between spaces (a lone symbol such as & may be counted or left out). Divide by three. A remainder of 0 selects (a), 1 selects (b), 2 selects (c). Quote the sentence and write the count and the result on the Chosen line, and build that direction even if another was your favorite. The name is not counted: a name you made up can be made to fit, and six one-line requests in a row came out with one first screen that way. `check.mjs` checks the count against the quoted sentence. If the user or an existing brand has already fixed the direction, there is nothing to choose and this step is skipped.
 
 **Rules make it real.** Each rule is something the Default would break: "color appears only on appointment gaps", "every figure is set in the condensed face at three times body size", "nothing is centered", "the schedule grid is the page grid". A direction that produces no such rules is only a label, and the page will come out as the Default wearing it. Carry the rules through the whole piece and keep everything else quiet. One device applied consistently reads as design; five devices read as noise.
 
