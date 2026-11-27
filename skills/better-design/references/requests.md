@@ -69,7 +69,7 @@ A short request is not a request for a small page. Decide the register from what
 - **Modest.** No awards, no press quotes, no customer counts, no testimonials, no "since 1987". An invented fact that flatters is a lie the owner will have to answer for.
 - **Consistent.** The same name, hours and prices everywhere on the page, in the title and in the metadata.
 - **Never about a real one.** If the request names a real business, product or person, look the facts up. Where you cannot, leave a visible gap and list it. Do not invent.
-- **Listed.** At hand-over, list everything that was made up, so the owner can replace it. In the design record, the Filled in line is that list. The list never goes on the page.
+- **Listed.** At hand-over, list everything that was made up, so the owner can replace it. In the design record, the Filled in line is that list. The list never goes on the page. A phone number or an address the request did not give is made up in a form that can belong to no one (a number from a range kept for fiction, an address at the business's name on `.example`), set on the page as if it were real and wired to its control, so that the visitor's last step works. The page never explains what is missing.
 
 ## When to ask
 

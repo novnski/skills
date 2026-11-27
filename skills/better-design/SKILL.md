@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.12.1"
+  version: "1.13.0"
 ---
 
 # Better Design
@@ -219,7 +219,7 @@ These hold for every register. Details for specific kinds of interface are in `r
 - One family is often enough. Two is the usual limit: one for display, one for text. Monospace is for code and data, not decoration.
 - Use a scale with few steps and visible jumps: five to seven sizes, each clearly different from its neighbor. Sizes one or two pixels apart read as mistakes. Product UI suits a ratio near 1.2. Expressive pages need 1.33 or more, with display type far larger than body.
 - Running text is 16px or more on the web. Dense tools can set UI text at 13–14px. Nothing goes below 12px.
-- Line height falls as size rises: 1.5–1.7 for body, 1.3–1.45 for UI text, 1.0–1.2 for display. Tighten tracking on large display type by about -0.02em (the check fails anything past -0.06em, where words have fused on test pages: that is a wall and not a setting), open it on small all-caps labels, and leave body text alone. The main headline stays at or under 96px on a desktop screen.
+- Line height falls as size rises: 1.5–1.7 for body, 1.3–1.45 for UI text, 1.0–1.2 for display. Tighten tracking on large display type by about -0.02em (the check fails anything past -0.06em: that is a wall and not a setting; it also fails a heading whose words stand less than 0.18em apart, since negative tracking comes off the space between words too and "under the arch" has shipped as "underthe arch" inside the wall: add word-spacing where the space has closed), open it on small all-caps labels, and leave body text alone. The main headline stays at or under 96px on a desktop screen.
 - Cap running text at 45–75 characters per line (`max-width: 65ch`).
 - Left-align anything longer than three lines. Center only short display copy.
 - Two or three weights. Emphasis needs a visible jump in weight.
@@ -281,7 +281,7 @@ These hold for every register. Details for specific kinds of interface are in `r
 - Show a status once: colored text with an icon, or a dot with plain text, or a tinted chip with text. A dot inside a tinted chip beside its own word says one thing three times.
 - A chip is a control (a filter, a tag that can be removed) or one of a set of categories. A note such as "sample data" is a plain sentence, not a badge.
 - A button carries no arrow. An arrow says one of three things: this link leaves the site, this button moves to the next step of a flow, or this link jumps down the page. Most screens need none. The limit of one a screen is a limit: 13 of 15 test pages spent it on the main button.
-- Every control does something. A link goes somewhere and a button acts. One that cannot work yet is removed, or visibly disabled and listed at hand-over.
+- Every control does something. A link goes somewhere and a button acts. One that cannot work yet is removed, or visibly disabled and listed at hand-over. The way to get in touch that the request names works from the page. Where the request gives no number or address, make one up that can belong to no one (a number from a range kept for fiction, an address at the business's name on `.example`), set it as if it were real, wire the control to it and list it at hand-over; a form with no server opens an email to that address. Never "call us" with no number, never an email the visitor has to address, never a form that only keeps what they typed, never a sentence explaining to the visitor what is not set up. Four blind judges named this last step as what most got in their way.
 - A control that asks for a choice shows what decides the choice. When the options differ in ways that matter (what each one costs, who is free, which is selected now), list them with those facts beside each name and mark the current one. A bare `<select>` is for options whose names say everything.
 - The same thing looks the same everywhere: one height scale for buttons and inputs, one icon family, one way of showing selection.
 - Forms, overlays, touch, long content, and the parts the browser draws (text selection, caret, scrollbars, native controls): `references/interaction.md`.
@@ -385,7 +385,7 @@ Counted by `look.mjs` in the Look step, from the rendered page:
 | Small styled lines above or under any heading (capitals, italics, monospace, a rule, a badge) | 0 |
 | Dots inside tinted chips, and dots or badges on a note about the content | 0 |
 | A first screen that is the text-left, picture-right split, or is wrapped in a rounded card | 0 |
-| A main headline above 96px at desktop width, or letter spacing tighter than -0.06em | 0 |
+| A main headline above 96px at desktop width, letter spacing tighter than -0.06em, or heading words less than 0.18em apart | 0 |
 | Long dashes in headings, labels and buttons | 0 |
 | Links and buttons that do nothing | 0 |
 | Pictures on a work screen that are not something the person works with | 0 |
@@ -435,7 +435,7 @@ Counted by hand. Write the numbers in the design record:
 
 Do not hand over interface work you have not looked at.
 
-1. Run the look script that ships with this skill. It opens the page in a real browser, captures it at 390, 768 and 1440 wide, and prints PASS or FAIL for what can only be checked once the page is rendered: console errors, sideways scrolling, text contrast, unnamed controls, keyboard focus, links and buttons that do nothing, the first-screen arrangement, headline size and letter spacing, pictures, dot labels, badges, lines beside headings, corner shape, long dashes, and the one-hue wash.
+1. Run the look script that ships with this skill. It opens the page in a real browser, captures it at 390, 768 and 1440 wide, and prints PASS or FAIL for what can only be checked once the page is rendered: console errors, sideways scrolling, text contrast, unnamed controls, keyboard focus, links and buttons that do nothing, a way to get in touch that does not work, the first-screen arrangement, headline size and letter spacing, the space between words in headings, pictures, dot labels, badges, lines beside headings, corner shape, long dashes, and the one-hue wash.
 
    ```
    node <this skill's folder>/scripts/look.mjs <project folder or URL>

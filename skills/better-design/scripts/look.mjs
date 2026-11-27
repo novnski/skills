@@ -245,6 +245,58 @@ const FIRST_SCREEN = `(() => {
   return { decorativePicture: deco ? (deco.getAttribute("alt") || deco.getAttribute("src") || "image").slice(0, 50) : null, headline: text.slice(0, 80), px: Math.round(parseFloat(hs.fontSize)), tracking: hs.letterSpacing === "normal" ? 0 : Math.round(1000 * parseFloat(hs.letterSpacing) / parseFloat(hs.fontSize)) / 1000, uppercase: hs.textTransform === "uppercase", split: split ? (hx < (v.r.left + v.r.right) / 2 ? "text on the left, picture on the right" : "picture on the left, text on the right") : null, textOver, picture: !!v, label, card };
 })()`;
 
+// The last practical step. Four blind judges named it as what most got in a visitor's way: "call" with no number on the
+// page, a slot left empty for the owner to fill (data-workshop-phone="", a practice-email meta tag with no content), a
+// sentence addressed to the owner where the visitor reads it. In the page code: 3 of 9 builds and 2 of 3 gallery pages.
+const LAST_STEP = `(() => {
+  const text = document.body.innerText || "", digits = (s) => (s.match(/\\d/g) || []).length;
+  const call = /\\b(?:call|phone|ring)\\s+(?:us|the\\s+(?:work)?shop|the\\s+(?:studio|salon|office|practice|team|front\\s+desk|store|clinic|surgery|restaurant|caf[eé]|bar|venue|box\\s+office))\\b|\\b(?:call|phone|ring)\\s+(?:during|ahead|before|to\\s+(?:book|arrange|check|reserve|order))\\b|\\bgive\\s+us\\s+a\\s+(?:call|ring)\\b|\\bby\\s+(?:tele)?phone\\b|\\b(?:tele)?phone\\s+(?:bookings?|orders?|enquir(?:y|ies))\\b|\\bover\\s+the\\s+phone\\b/gi;
+  let said = null;
+  for (const m of text.matchAll(call)) { if (/\\b(?:no|not|never|without|don[’']t|doesn[’']t|can[’']t|cannot)\\b[^.!?\\n]*$/i.test(text.slice(Math.max(0, m.index - 28), m.index))) continue;
+    said = text.slice(Math.max(0, m.index - 24), m.index + m[0].length + 36).replace(/\\s+/g, " ").trim(); break; }
+  const number = [...document.querySelectorAll('a[href^="tel:"]')].some((a) => digits(a.getAttribute("href")) >= 6) || (text.match(/(?:\\+|\\(|\\b0)\\d[\\d ().-]{6,}\\d/g) || []).some((s) => digits(s) >= 9) || /\\b\\d{3}[ .-]\\d{3}[ .-]\\d{4}\\b/.test(text) || /\\b555[ .-]01\\d\\d\\b/.test(text);
+  const holes = [];
+  for (const e of document.querySelectorAll("*")) for (const a of e.attributes) if (/^data-.*(?:phone|tel|mail|endpoint|recipient)/i.test(a.name) && !a.value.trim()) holes.push(a.name + '=""');
+  for (const m of document.querySelectorAll("meta[name]")) if (/phone|tel|mail|endpoint|recipient/i.test(m.getAttribute("name")) && !(m.getAttribute("content") || "").trim()) holes.push("meta " + m.getAttribute("name") + ' content=""');
+  for (const a of document.querySelectorAll('a[href^="mailto:"], a[href^="tel:"]')) { const h = a.getAttribute("href"), to = h.replace(/^(?:mailto|tel):/i, "").split("?")[0].trim();
+    if (!to && !/share|forward|friend/i.test(a.innerText + " " + (a.getAttribute("aria-label") || "") + " " + (a.getAttribute("title") || ""))) holes.push('href="' + h.slice(0, 28) + '"'); }
+  const notes = [];
+  for (const re of [/\\blocal preview\\b/i, /\\bexample (?:phone |telephone |workshop |shop |contact )?(?:number|e-?mail(?: address)?|address)\\b/i, /\\bawaiting set-?\\s?up\\b/i, /\\b(?:add|needs?)\\s+the\\s+[\\w-]+[’']s\\s+(?:own\\s+)?(?:e-?mail\\s+)?address\\s+(?:and|before|to)\\s+send/i, /\\bbefore publishing\\b/i]) {
+    const m = text.match(re); if (m) notes.push(text.slice(Math.max(0, m.index - 36), m.index + m[0].length + 36).replace(/\\s+/g, " ").trim()); }
+  return { said, number, holes: [...new Set(holes)], notes: [...new Set(notes)] };
+})()`;
+
+// The space left between two words in a heading, as rendered, as a share of the type size. Negative letter spacing is
+// taken off the space as well as the letters, and a display face with a narrow space has little to give: "underthe
+// arch", "Booka repair", "Atthe counter" on 3 of 9 builds, each inside the -0.06em letter-spacing limit. A designer who
+// judged twelve pages blind called seven too tight: those seven measure 0.147em to 0.168em here, the other five
+// 0.199em and up. Measured between two words on the same line.
+const WORD_GAPS = `(() => {
+  const vis = (e) => { const s = getComputedStyle(e), r = e.getBoundingClientRect(); return r.width > 2 && r.height > 2 && s.visibility !== "hidden" && s.display !== "none" && +s.opacity > 0.05; };
+  const boxes = [];
+  for (const e of document.querySelectorAll("body *")) { if (!vis(e) || e.closest("[class*=skip]") || boxes.some((b) => b.contains(e))) continue;
+    const head = /^H[1-4]$/.test(e.tagName) || e.getAttribute("role") === "heading";
+    if (head || (parseFloat(getComputedStyle(e).fontSize) >= 28 && [...e.childNodes].some((n) => n.nodeType === 3 && n.nodeValue.trim().length > 1))) boxes.push(e); }
+  const rect = (c) => { const r = document.createRange(); r.setStart(c[0], c[1]); r.setEnd(c[0], c[1] + 1); return r.getBoundingClientRect(); }, out = [];
+  for (const box of boxes) { const chars = [], w = document.createTreeWalker(box, NodeFilter.SHOW_TEXT); let last = null;
+    for (let n = w.nextNode(); n; n = w.nextNode()) { if (!n.parentElement || !vis(n.parentElement)) continue;
+      const first = n.nodeValue.search(/\\S/);   // a line break between two text nodes (a br, a block) ends the word
+      if (last && first >= 0) { const a = rect(last), b = rect([n, first]); if (a.width > 0 && b.width > 0 && Math.abs(a.top - b.top) > a.height * 0.5) chars.push([null, 0, "\\n"]); }
+      for (let i = 0; i < n.nodeValue.length; i++) { chars.push([n, i, n.nodeValue[i]]); if (/\\S/.test(n.nodeValue[i])) last = [n, i]; } }
+    let worst = null;
+    for (let k = 1; k < chars.length - 1; k++) { if (!/\\s/.test(chars[k][2]) || /\\s/.test(chars[k - 1][2])) continue;
+      let j = k; while (j < chars.length && /\\s/.test(chars[j][2])) j++; if (j >= chars.length) break;
+      const a = chars[k - 1], b = chars[j], ra = rect(a), rb = rect(b), fs = parseFloat(getComputedStyle(a[0].parentElement).fontSize);
+      if (!(ra.width > 0 && rb.width > 0) || fs < 18 || Math.abs(ra.top - rb.top) > fs * 0.5 || rb.left < ra.left) continue;
+      const gap = (rb.left - ra.right) / fs; if (gap > 1) continue;
+      let p = k - 1, q = j; while (p > 0 && !/\\s/.test(chars[p - 1][2])) p--; while (q < chars.length - 1 && !/\\s/.test(chars[q + 1][2])) q++;
+      if (!worst || gap < worst.gap) worst = { gap, words: chars.slice(p, k).map((c) => c[2]).join("") + " " + chars.slice(j, q + 1).map((c) => c[2]).join(""), px: Math.round(fs) }; }
+    if (worst) out.push({ gap: Math.round(worst.gap * 1000) / 1000, words: worst.words.slice(0, 40), px: worst.px, tag: box.tagName.toLowerCase() }); }
+  return out.sort((x, y) => x.gap - y.gap).slice(0, 40);
+})()`;
+// Under this share of the type size the words of a heading sit too close. Between the two measured groups (0.168, 0.199).
+const WORD_GAP_MIN = 0.18;
+
 const out = { site, captures: outDir, widths: {} }, lines = []; let failed = 0, broken = false;
 const REG = await declaredRegister(), SHOW = REG.name === "showpiece", PIECE = REG.name === "piece", LOOK = await declaredLook(), PICTURE = await declaredPicture(), EXPLAINS = /(?<!\b(?:no|not|without|never)\b[^.]{0,14})\b(?:diagrams?|label+ed|elevations?|plans?|maps?|charts?|schematics?|blueprints?|cutaways?|exploded views?)\b/i.test(PICTURE); out.register = REG; out.look = LOOK;
 const say = (kind, name, text) => { if (kind === "FAIL") failed++; lines.push(`${kind}  ${name.padEnd(22)} ${text}`); };
@@ -316,6 +368,18 @@ try {
 
   // Small habits across the whole page, at desktop width
   const H = await evaluate(HABITS); out.habits = H;
+
+  // Words that run together, and the last practical step
+  try { const G = await evaluate(WORD_GAPS), tight = G.filter((g) => g.gap < WORD_GAP_MIN); out.wordGaps = G;
+    if (tight.length) say("FAIL", "words run together", `${tight.length} heading${tight.length > 1 ? "s leave" : " leaves"} too little space between words: ${list(tight.map((g) => `"${g.words}" ${g.gap}em at ${g.px}px`), 3)}. The space between two words in a heading is at least ${WORD_GAP_MIN}em of the type size; under that the words start to read as one ("underthe arch" was 0.159em). Negative letter-spacing comes off the space as well as the letters: ease it on these headings, or add word-spacing, until the space is there.`);
+    else if (G.length) say("PASS", "words run together", `the tightest space between two words in a heading is ${G[0].gap}em ("${G[0].words}")`);
+  } catch (e) { say("NOTE", "words run together", "the word-space check could not run: " + e.message); }
+  try { const S = await evaluate(LAST_STEP); out.lastStep = S;
+    const invent = "the real one if the request gives it, else one made up that can belong to no one (a number from a range kept for fiction, such as 01632 960xxx in Britain or 555 0100 to 555 0199 in North America; an address at the business's name on .example), set as if it were real and listed at hand-over";
+    if (S.said) say(S.number ? "PASS" : "FAIL", "phone with no number", S.number ? "the page says to phone and shows a number" : `the page says "${S.said}" and shows no number to call. Put a number on the page and link it with tel: ${invent}.`);
+    if (S.holes.length) say("FAIL", "empty contact detail", `${list(S.holes, 4)}. An empty slot leaves the visitor with a control that goes nowhere. Fill it: ${invent}. A form with no server to send to opens an email to that address (mailto:) with what the visitor typed.`);
+    if (S.notes.length) say("FAIL", "note to the owner", `the visitor can read: ${list(S.notes.map((n) => `"${n}"`), 2)}. That is a sentence for the owner. Take it off the page and say it at hand-over, and make the step work in place of explaining why it does not: ${invent}.`);
+  } catch (e) { say("NOTE", "last step", "the contact check could not run: " + e.message); }
   // If the in-page checks did not run, say so loudly: a page must never pass because the script broke.
   if (!H || !H.dots) { broken = true; lines.push("ERROR habit checks           the in-page checks did not run on this page. This is a fault in look.mjs or habits.mjs, not in the page: the result below is incomplete."); }
   const quote = (a, n = 4) => list([...new Set(a)].map((t) => `"${t}"`), n);
