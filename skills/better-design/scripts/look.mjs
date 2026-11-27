@@ -351,7 +351,7 @@ try {
       if (A.slogan) say("FAIL", "slogan headline", `"${A.slogan}" is a slogan shape and names no kind of product, service or place. Cover the logo: would a stranger know what this is? Say what it is and who or where it is for.`); else say("PASS", "slogan headline", "the main headline is not one of the stock slogan shapes");
       say(A.italicHeads.length ? "FAIL" : "PASS", "italics in headings", A.italicHeads.length ? `${A.italicHeads.length} heading${A.italicHeads.length > 1 ? "s carry" : " carries"} an italic fragment (${quote(A.italicHeads, 3)}). One of 39 well-known sites does that. Set the whole heading in one style.` : "no heading mixes in an italic fragment");
       if (A.beside && (SHOW || PIECE)) say("PASS", "beside the headline", `a block shares the headline's row (allowed in a ${REG.name})`);
-      else if (A.beside && !F.split) say(flag("--asked-for-split") ? "NOTE" : "FAIL", "beside the headline", `the main headline sits on the left with a block beside it ("${A.beside}"): the arrangement the last builds all shared. 10 of 39 well-known sites do this; most give the headline its row to itself. Do the same here and put this under it` + (flag("--asked-for-split") ? " (allowed: the brief asks for it)." : "."));
+      else if (A.beside && !F.split) say("NOTE", "beside the headline", `a block sits beside the main headline ("${A.beside}"). That is yours to decide, from the thing the arrangement was taken from. What it must not become is the split every generated page opens with: text on the left, a picture or a panel on the right.`);
       else if (!F.split) say("PASS", "beside the headline", "the main headline has its row to itself");
       const I = A.icons, offMany = I.off.length >= 3 && I.off.length > 0.2 * I.inline;
       say(offMany ? "FAIL" : "PASS", "icon alignment", offMany ? `${I.off.length} of ${I.inline} icons sit more than 2.5px off the middle of the text beside them (${quote(I.off, 4)}). Center each icon on its line of text.` : `${I.inline} icons beside text, ${I.off.length} off the line`);
@@ -449,7 +449,7 @@ try {
   out.palette = m;
   const top = [...m.families].sort((a, b) => b.tinted - a.tinted)[0];
   say(m.tinted > 10 ? "FAIL" : "PASS", "one-hue wash", m.tinted > 10 ? `${m.tinted}% of the first screen is gray that leans ${top ? top.name : "toward a hue"} (limit 10%${m.naturalPicturesLeftOut ? ", photographs in natural color left out" : ""}). Make the neutrals gray, and give any picture printed in the accent's ink its own colors or black and white.` : `${m.neutral}% neutral, ${m.tinted}% tinted gray, ${m.colored}% color on the first screen` + (m.naturalPicturesLeftOut ? `, leaving out ${m.naturalPicturesLeftOut} picture${m.naturalPicturesLeftOut > 1 ? "s" : ""} in natural color` : ""));
-  if (m.colored > 25) say("NOTE", "color area", `${m.colored}% of the first screen is plain color. That is right only if the Palette line names a flooded field or the screen is mostly photograph.`);
+  if (m.colored > 25) say("NOTE", "color area", `${m.colored}% of the first screen is plain color. A field of flat color is a sound choice. Check that it is one field with black or white on it, and that the page around it stays neutral.`);
 
   await writeFile(join(outDir, "report.json"), JSON.stringify(out, null, 1));
   if (flag("--json")) console.log(JSON.stringify(out));

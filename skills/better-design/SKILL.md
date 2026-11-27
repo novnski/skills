@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.5.1"
+  version: "1.6.0"
 ---
 
 # Better Design
@@ -66,7 +66,7 @@ Differs:    palette structure: <default> -> <chosen>
 Palette:    seen: the three best-known products or businesses in this field, in the order
                 they came to mind, each with the one color it is known for
             neutrals: plain gray, warm gray or cool gray
-            spent on: the few things that carry the accent
+            spent on: where the color goes: one flat field, or the few things that carry it
 Accent:     one word: the hue the count selected (red, orange, yellow, green,
             teal, blue, purple, pink), none, or supplied
 Type:       seen: the lettering on three real things in this field
@@ -127,7 +127,7 @@ The Differs lines are the proof. For each axis, name the Default's option and th
 5. Nothing else is a source. Not a mood: calm, trustworthy, modern and friendly can be argued for any hue. Not the product's name. Not an object: every subject has a yellow sign, a green plant or a red stamp somewhere in it. Not a picture you generated or a thing you drew: its colors were your own choice. Settle the palette first and make any picture in it.
 6. Say where the accent is spent. Everything else stays neutral.
 
-A direction may call for more than an accent: a page flooded with one color, or two colors in tension. That is a palette structure chosen in the brief, and the Palette line names it. A flood is one flat field of color in one or two places, with black or white on top. It is not a tint on everything.
+A direction may call for more than an accent: a page flooded with one color, or two colors in tension. That is a palette structure like any other, and yours to choose. A flood is one flat field of color in one or two places, with black or white on top. It is not a tint on everything.
 
 **The Type line.** Typefaces repeat from one generated page to the next as surely as colors do: the same few sans faces, the same few serifs, and a heavy condensed face whenever the page is meant to look bold. A typeface class in the Directions is not a font, and "a sans with character" does not mean the first one that comes to mind. Find the face the way `references/typography.md` describes: look at the lettering the subject already lives with, describe the face you need in plain terms, search a font library by those properties, and compare several candidates set in the real headline. The faces on the reflex list in that file are off the table unless the user or an existing brand supplies them. And the search does not start from a shortlist of your own: three candidates of the builder's choosing were the same three on site after site, listed in whatever order put the favorite where the count landed. The request deals five letters instead. Run `scripts/check.mjs --letters` with the sentence quoted on the Chosen line, copy the five letters it prints to the Type line, and take every typeface the page loads from the names that start with one of them. Inside those letters the choice is yours, and you make it for the subject. Outside a utility page both faces are loaded ones: a system font such as Arial can meet the letters, and it makes the page plainer. `check.mjs` deals the letters again and fails a face outside them.
 
@@ -137,7 +137,7 @@ A direction may call for more than an accent: a page flooded with one color, or 
 - Take the arrangement from the thing the count selects on the First screen line, and compose the first screen as one field: the ground, the words, what shows the subject and the action belong to one picture. A white page with a headline and a box under it is the arrangement every build falls back to. An interface wants the full width.
 - No uppercase or wide-tracked label and no badge above the main headline. If it says something the reader needs, put it in the headline or the line under it.
 - The main headline says what the thing is and who or where it is for: the kind of product, service or place, in the customer's words. Cover the logo and read it alone. If it would fit a different kind of business, it is a slogan, and a business nobody has heard of cannot afford one. It does not need to be two lines, and it does not need a full stop. It is set in one style, with no italic fragment.
-- The headline has its row to itself. All 17 pages in one test run set it on the left, and 8 of them put a paragraph, a panel or a picture beside it. About half of well-known sites center the headline, and 10 of 39 put something beside it.
+- Where the headline sits, and what sits beside it, under it or behind it, is yours to decide from the thing the arrangement was taken from. One arrangement stays out: text on the left with a picture or a panel on the right. In one test run 8 of 17 pages opened that way whatever the subject, and `look.mjs` fails it.
 - One main action, carried by one control, and it sits with the headline. The navigation then carries links only: a filled button at the end of the top bar is on every generated page. A section linked from the navigation is not linked again a few lines lower.
 - No band of facts under the first screen. A row of three or four short facts in a strip (figures, a label over each value, capitals with ornaments between) sat under the first screen of 10 of this skill's 16 test pages and of none of 32 well-known sites. It is a stats bar, and with the words moving it would be a marquee. A fact goes where it is used: the one or two that decide a visit (when, where, how much) as a plain line in the first screen, the price beside the buy button, the hours beside the address. The rest is cut.
 
@@ -235,7 +235,7 @@ These hold for every register. Details for specific kinds of interface are in `r
 - The accent means something: the primary action, the current selection, the thing that needs attention. It covers a few percent of a screen. If it appears everywhere, it marks nothing.
 - Text is neutral. Headings and body text are black, white or gray. The accent can color a link, one phrase or one figure. A page whose headlines, buttons, logo, panels and pictures all share the accent is washed in it, even when its grays are gray.
 - The accent's hue comes from the subject, by the steps under "The Palette line" in section 3. A hue that arrived as a framework default (indigo, violet, blue-600), or as the next choice after ruling those out, was not chosen.
-- A large field of color (a flooded section, a colored bar or panel) is a statement. Use it only when the Palette line names it, in one or two places, flat, with black or white on top. Any dark bar or panel the Palette line does not name is near-black gray, not a deep shade of the accent.
+- A field of flat color (a flooded first screen, a colored band) is yours to use: in one or two places, flat, with black or white on top, and the page around it neutral. What stays out is the wash: backgrounds, text, borders and panels all leaning toward one hue. A dark bar or panel is near-black gray, not a deep shade of the accent.
 - Status colors (success, warning, danger, info) are for status only and stay out of decoration. If the accent's hue sits close to one of them, give that status an icon or shape of its own so the two are never confused.
 - Define ramps in OKLCH so lightness steps are even and hue holds steady across a ramp.
 - Contrast: 4.5:1 for body text; 3:1 for large text, icons and the boundaries of controls. Light gray text on white is the most common failure, so check secondary and placeholder text specifically. Text over an image or gradient needs a scrim or a solid backing.

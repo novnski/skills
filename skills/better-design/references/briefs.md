@@ -15,11 +15,11 @@ This file holds no filled-in brief on purpose. An example brief gets copied: its
 | Differs | Each axis names the Default's option and the chosen option, and the two are different options from the lists in section 3. |
 | Palette, seen | It names the three best-known products or businesses in this field, in the order they came to mind, each with one color. It was written before the count was taken. |
 | Accent | One word: the hue of the name the count selects, `none` if that one is black, white or gray, or `supplied`. It is not your favorite of the three, and it does not come from an object or from a picture you made. The color you mix is plainly that hue. |
-| Palette, spent on | The list is short enough to count on one hand. |
+| Palette, spent on | One flat field of color, or a list short enough to count on one hand. |
 | Type, seen | It names lettering that people in this field actually read: the products they use, the signs and printed matter they see. |
 | Type, letters | The five letters that `check.mjs --letters` prints for the sentence quoted on the Chosen line, copied as printed. You did not choose them. |
 | Type, face | Each face is a loaded one (not Arial, Helvetica, Georgia or the system font, unless the Register is utility), has a name that starts with one of the five letters and is not on the reflex list, and each says what it takes from the lettering you saw. |
-| First screen | Its `seen` part names how three real things in this field are laid out, and the arrangement is the one the count selects: it is not one of a stock of page layouts. It says what the visitor sees first and where the words sit, composed as one field with the action beside the headline. The headline has its row to itself. It is not the Default's arrangement. |
+| First screen | Its `seen` part names how three real things in this field are laid out, and the arrangement is the one the count selects: it is not one of a stock of page layouts. It says what the visitor sees first and where the words sit, composed as one field with the action beside the headline. It is not the Default's arrangement. |
 | Headline | With the logo covered, a stranger could say what is sold and to whom. It would not fit a different kind of business. |
 | Action | It names one action and one control. Nothing else on the first screen leads to the same place. |
 | Concept (showpiece) | The sentence could not be said about a rival's page, and it changes what the visitor does or how the page is ordered. An idea that only changes how the page looks is a costume. |
