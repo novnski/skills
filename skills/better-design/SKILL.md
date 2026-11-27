@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.11.0"
+  version: "1.12.0"
 ---
 
 # Better Design
@@ -74,11 +74,11 @@ Type:       seen: the lettering on three real things in this field
             face: one for headings and one for text, both loaded, like what you saw, each name starting with one of the five
 First screen: seen: how three real things in this field are laid out, and where each carries its color
             from: the one the count selects; what is seen first, and where the words, the name and the links sit
-Headline:   the main headline, word for word: what this is and who or where it is for
+Headline:   the main headline, word for word. The first screen as a whole says what this is and for whom
 Action:     the one main action on the first screen: its wording, and the single control
             that carries it
-Concept:    (showpiece only) the one idea the page is built around, in a sentence the
-            visitor could repeat to a friend
+Concept:    (not on a utility page) the one idea the page is built around, in a sentence the
+            visitor could repeat to a friend, and the two places below the first screen that carry it
 Scenes:     (showpiece only) the page as a numbered run of screens: what each one shows
             and what changes from one to the next
 Moment:     (showpiece and piece) the one authored thing nobody expects from this kind
@@ -136,9 +136,9 @@ A direction may call for more than an accent: a page flooded with one color, or 
 - Decide what the visitor sees first from what is being offered, using the table in `references/page-types.md`. That table says what a visitor needs to see. It does not say how to arrange it.
 - Take the arrangement from the thing the count selects on the First screen line, and compose the first screen as one field: the ground, the words, what shows the subject and the action belong to one picture. A white page with a headline and a box under it is the arrangement every build falls back to. An interface wants the full width.
 - No uppercase or wide-tracked label and no badge above the main headline. If it says something the reader needs, put it in the headline or the line under it.
-- The main headline says what the thing is and who or where it is for: the kind of product, service or place, in the customer's words. Cover the logo and read it alone. If it would fit a different kind of business, it is a slogan, and a business nobody has heard of cannot afford one. It does not need to be two lines, and it does not need a full stop. It is set in one style, with no italic fragment.
+- The first screen as a whole says what the thing is and who or where it is for, in the customer's words. The headline does not have to say all of that itself: it is free to say what only this business could say, so long as a stranger who covers the logo still knows what is offered. When every headline had to name the kind of business and its place, two builds of one request came out with the same headline word for word, four times in five. A line that would fit a different kind of business is still a slogan, and a business nobody has heard of cannot afford one. It does not need to be two lines, and it does not need a full stop. It is set in one style, with no italic fragment.
 - Where the headline sits, and what sits beside it, under it or behind it, is yours to decide from the thing the arrangement was taken from. One arrangement stays out: text on the left with a picture or a panel on the right. In one test run 8 of 17 pages opened that way whatever the subject, and `look.mjs` fails it.
-- One main action, carried by one control. How a visitor moves around the page is part of the design and yours to decide: where the name sits, whether there is a bar at all, what it holds and where. A bar across the top with the name at the left and a few links beside it is what a build makes when nothing was decided: 26 of 29 test pages had it. Write yours on the Default line, then decide this page's with the rest of the first screen. A section linked from the navigation is not linked again a few lines lower.
+- One main action, carried by one control. How a visitor moves around the page is part of the design and yours to decide: where the name sits, whether there is a bar at all, what it holds and where, and how the page ends. A thin strip with the name at the left and one line at the right closed 15 of 15 test pages. A bar across the top with the name at the left and a few links beside it is what a build makes when nothing was decided: 26 of 29 test pages had it. Write yours on the Default line, then decide this page's with the rest of the first screen. A section linked from the navigation is not linked again a few lines lower.
 - No band of facts under the first screen. A row of three or four short facts in a strip (figures, a label over each value, capitals with ornaments between) sat under the first screen of 10 of this skill's 16 test pages and of none of 32 well-known sites. It is a stats bar, and with the words moving it would be a marquee. A fact goes where it is used: the one or two that decide a visit (when, where, how much) as a plain line in the first screen, the price beside the buy button, the hours beside the address. The rest is cut.
 
 **The Picture line.** With no photograph to hand, a model generates a picture, and most often a drawing in an old print style: an engraved dog, an etched shopfront, a woodcut tool. It appeared on about two thirds of this skill's test pages, whatever the subject, usually as decoration beside the headline. So decide what the picture is for:
@@ -146,8 +146,8 @@ A direction may call for more than an accent: a page flooded with one color, or 
 - Software shows its interface, built in HTML at a size that can be read. No mascot, animal or scene beside it.
 - A product has to be seen. With no photograph supplied, one plain generated photograph stands in, and hand-over says it must be replaced.
 - A place or a service uses real photographs when they are supplied. With none, the first screen shows what it works on or how to find it, as a drawing that explains something a visitor needs and words cannot give. It does not invent photographs of the premises or the staff, and hand-over says which real photographs would help and where they would go.
-- A drawing explains something: a diagram, a map, a labeled part. It is never decoration, and never an engraving, etching, woodcut or pen-and-ink scene unless the Look line is supplied and asks for it, or the brand already uses that style.
-- "None" is the answer on a utility page, and for any section after the first screen. Outside utility the first screen shows the subject, not only names it, and `check.mjs` fails a Picture line that says none there. An empty space is still never filled with a prop built from HTML.
+- A drawing explains something a visitor needs. It is never decoration, and never an engraving, etching, woodcut or pen-and-ink scene unless the Look line is supplied and asks for it, or the brand already uses that style.
+- "None" is the answer on a utility page. Outside utility the first screen shows the subject, not only names it, and `check.mjs` fails a Picture line that says none there. The page below the first screen is designed as well, and the Concept line says where: five reviewers who had not seen these pages before each found that the design stopped at the first screen, with the same ruled price list and the same form under every one. An empty space is still never filled with a prop built from HTML.
 - Nothing on the page is dressed as a physical object. No part of the interface is made to look like a sheet of paper, a folder, a ticket, a tag, a receipt or a note, and none of the trimmings that go with them appear: a block set at an angle, a paperclip, tape, a pin, a stamp, a perforation, a torn or notched edge, squared or dotted paper behind the content. Content sits upright in plain rectangles. The first eight pages built after the old-print drawing was ruled out replaced it with exactly these props on five of them.
 
 **The Shape line.** The stock shape of a generated page is soft: a rounded card around the first screen and around every block, 12 to 22 pixels at the corners, with pill buttons. Half of well-known real sites round their containers and half use some pill buttons, so roundness is not the fault. The fault is that nobody chose it, and that it is the same on a bank, a clinic and a toy shop. So choose it:
@@ -173,7 +173,7 @@ Every interface sits somewhere between utility and expression. Place it before d
 - Color spent in one decisive place, and spent fully there. Committing to a color does not mean tinting everything with it. The page around the color stays neutral, which is what makes the color read.
 - Type as the image: display type with tight leading and deliberately placed line breaks can carry a page that has no pictures.
 - A grid with deliberate breaks: establish columns, then let one element cross them.
-- Rhythm between sections: alternate dense and sparse, light and dark, contained and full-bleed, text-led and image-led.
+- Each section is arranged for what it holds. A stack of full-width bands alternating light, pale and one dark made up 14 of 15 test pages: the bands were the design, whatever was in them.
 - The thing itself: the real product interface, real work, real numbers, in place of descriptions of them.
 
 Spend the extravagance in one place and keep the rest disciplined.
@@ -219,7 +219,7 @@ These hold for every register. Details for specific kinds of interface are in `r
 - One family is often enough. Two is the usual limit: one for display, one for text. Monospace is for code and data, not decoration.
 - Use a scale with few steps and visible jumps: five to seven sizes, each clearly different from its neighbor. Sizes one or two pixels apart read as mistakes. Product UI suits a ratio near 1.2. Expressive pages need 1.33 or more, with display type far larger than body.
 - Running text is 16px or more on the web. Dense tools can set UI text at 13–14px. Nothing goes below 12px.
-- Line height falls as size rises: 1.5–1.7 for body, 1.3–1.45 for UI text, 1.0–1.2 for display. Tighten tracking on large display type by about -0.02em and never past -0.06em, open it on small all-caps labels, and leave body text alone. The main headline stays at or under 96px on a desktop screen.
+- Line height falls as size rises: 1.5–1.7 for body, 1.3–1.45 for UI text, 1.0–1.2 for display. Tighten tracking on large display type by about -0.02em (the check fails anything past -0.06em, where words have fused on test pages: that is a wall and not a setting), open it on small all-caps labels, and leave body text alone. The main headline stays at or under 96px on a desktop screen.
 - Cap running text at 45–75 characters per line (`max-width: 65ch`).
 - Left-align anything longer than three lines. Center only short display copy.
 - Two or three weights. Emphasis needs a visible jump in weight.
@@ -280,7 +280,7 @@ These hold for every register. Details for specific kinds of interface are in `r
 - A dot beside a label means a state that can change. Use one only where there is such a state and the reader knows what the states are. Never beside a title, a note or any label that is always the same.
 - Show a status once: colored text with an icon, or a dot with plain text, or a tinted chip with text. A dot inside a tinted chip beside its own word says one thing three times.
 - A chip is a control (a filter, a tag that can be removed) or one of a set of categories. A note such as "sample data" is a plain sentence, not a badge.
-- A button carries no arrow. An arrow says one of three things: this link leaves the site, this button moves to the next step of a flow, or this link jumps down the page. At most one control on a screen carries one. An arrow on every button says nothing.
+- A button carries no arrow. An arrow says one of three things: this link leaves the site, this button moves to the next step of a flow, or this link jumps down the page. Most screens need none. The limit of one a screen is a limit: 13 of 15 test pages spent it on the main button.
 - Every control does something. A link goes somewhere and a button acts. One that cannot work yet is removed, or visibly disabled and listed at hand-over.
 - A control that asks for a choice shows what decides the choice. When the options differ in ways that matter (what each one costs, who is free, which is selected now), list them with those facts beside each name and mark the current one. A bare `<select>` is for options whose names say everything.
 - The same thing looks the same everywhere: one height scale for buttons and inputs, one icon family, one way of showing selection.

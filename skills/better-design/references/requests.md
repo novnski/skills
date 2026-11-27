@@ -69,7 +69,7 @@ A short request is not a request for a small page. Decide the register from what
 - **Modest.** No awards, no press quotes, no customer counts, no testimonials, no "since 1987". An invented fact that flatters is a lie the owner will have to answer for.
 - **Consistent.** The same name, hours and prices everywhere on the page, in the title and in the metadata.
 - **Never about a real one.** If the request names a real business, product or person, look the facts up. Where you cannot, leave a visible gap and list it. Do not invent.
-- **Listed.** At hand-over, list everything that was made up, so the owner can replace it. In the design record, the Filled in line is that list.
+- **Listed.** At hand-over, list everything that was made up, so the owner can replace it. In the design record, the Filled in line is that list. The list never goes on the page.
 
 ## When to ask
 

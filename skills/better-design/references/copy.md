@@ -80,6 +80,7 @@ Sample data is content, and people judge the design by it.
 ## Honesty
 
 - Never present invented testimonials, customers, statistics, awards or press as real.
-- Mark placeholder content as a placeholder, and list it at hand-over.
-- Label a generated image as generated when it could be mistaken for a photograph of a real place, person or product.
+- List made-up content at hand-over and in the design record, and nowhere on the page. "Example workshop number" or "fictional preview" in a visitor's sight says the business is not real.
+- A button says what the visitor gets, not what the page's code does: the name of the thing they came for, never "Prepare" or "Save" something. A page does not explain its own plumbing ("this creates an email draft").
+- A generated image stands in until a real one replaces it, and hand-over says which ones. On the page it gets no caption that claims it is real (a photographer's credit, "our workshop") and none that says it is not ("concept render").
 - Do not copy another site's text, images or signature look.
