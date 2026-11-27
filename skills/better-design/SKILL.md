@@ -4,7 +4,7 @@ description: "Use for any work that changes what a person sees in an interface: 
 license: MIT
 metadata:
   author: novnski
-  version: "1.4.0"
+  version: "1.5.0"
 ---
 
 # Better Design
@@ -72,7 +72,8 @@ Accent:     one word: the hue the count selected (red, orange, yellow, green,
 Type:       seen: the lettering on three real things in this field
             letters: the five that `scripts/check.mjs --letters "<that sentence>"` prints
             face: one for headings and one for text, both loaded, like what you saw, each name starting with one of the five
-First screen: what the visitor sees first, how it is arranged, and where the words sit
+First screen: seen: how three real things in this field are laid out
+            from: the one the count selects; what the visitor sees first, and where the words sit
 Headline:   the main headline, word for word: what this is and who or where it is for
 Action:     the one main action on the first screen: its wording, and the single control
             that carries it
@@ -84,8 +85,8 @@ Moment:     (showpiece and piece) the one authored thing nobody expects from thi
             of site: what the visitor does and what happens
 Object:     (piece only) the one thing the person acts on, what it shows before they
             touch it, and what each action changes on it
-Picture:    what the first screen shows of the subject (the interface, a photograph, a labeled
-            diagram, a map; none only on a utility page) and what it shows that the words cannot
+Picture:    what the first screen shows of the subject (the interface, a photograph, a drawing
+            that explains; none only on a utility page) and what it shows that the words cannot
 Shape:      the corner character (sharp, balanced or soft), why it suits this audience,
             and the one button shape
 Rules:      three to five concrete rules the chosen direction imposes on layout, type and color
@@ -99,7 +100,7 @@ Rules:      three to five concrete rules the chosen direction imposes on layout,
 
 - Palette structure: light neutral with one accent; a page flooded with one color; dark; black and white with a single spot color; two strong colors in tension; a multi-color system.
 - Typeface class: neutral sans; grotesque with character; condensed; text serif; display serif; slab; monospace; rounded.
-- First-screen composition: words over a full-width picture or field of color; centered words above the product; the working interface filling the screen with a line of text; type alone at poster scale; left-aligned words above a full-width picture. In every one of these the headline has its row to itself. Text on the left with a picture, a paragraph or a panel on the right is the usual split. It is the Default for every landing page, whatever you wrote on the Default line, so it never counts as a different composition.
+- First-screen composition: taken from the subject, never from a list. An earlier version of this line named five arrangements, and every page came out as one of the five. On the First screen line, write how three real things in this field are laid out: whatever this subject has that people look at or use. Each direction takes its arrangement from one of them, in the order written there. Borrow how the thing is arranged, never what it is made of: no paper, wood or chalk. Text on the left with a picture, a paragraph or a panel on the right is the usual split. It is the Default for every landing page, whatever you wrote on the Default line, so it never counts as a different composition.
 
 A showpiece adds a fourth axis, and its three directions differ on that too. How the page is moved through: a column of sections; full-screen scenes one after another; one pinned scene that changes as the visitor scrolls; a sideways journey; an index the visitor picks from. A column of sections is the Default. In a piece the composition axis is where the controls sit, and the order is: (a) on the object, (b) docked along the bottom, (c) docked along one side.
 
@@ -113,7 +114,7 @@ The Differs lines are the proof. For each axis, name the Default's option and th
 - Its content: mostly numbers, long text, photographs, a single action? Let the dominant material set the layout.
 - A structural device that can apply everywhere: a strict column system, one type treatment, a color rule, a recurring shape or line.
 
-**Choosing.** Left to choose, a model picks the same direction every time, and that is how an accountant, a bike shop and a clinic come out with one layout between them. So the choice is taken out of your hands, by a number you did not choose. Write the three directions first: three different ideas for this subject, each described by what is on the screen. In every one the first screen shows the subject and carries its one action. Make sure you would ship any of them for this audience and this job: replace one you would not. Then count the words in the first sentence of the request, exactly as it was written: a word is whatever stands between spaces (a lone symbol such as & may be counted or left out). Divide by three. A remainder of 0 selects (a), 1 selects (b), 2 selects (c). Quote the sentence and write the count and the result on the Chosen line, and build that direction even if another was your favorite. The name is not counted: a name you made up can be made to fit, and six one-line requests in a row came out with one first screen that way. `check.mjs` checks the count against the quoted sentence. If the user or an existing brand has already fixed the direction, there is nothing to choose and this step is skipped.
+**Choosing.** Left to choose, a model picks the same direction every time, and that is how an accountant, a bike shop and a clinic come out with one layout between them. So the choice is taken out of your hands, by a number you did not choose. Write the three directions first: three different ideas for this subject, each described by what is on the screen, and each arranged like one of the three things on the First screen line, in the order written there. In every one the first screen shows the subject and carries its one action. Make sure you would ship any of them for this audience and this job: replace one you would not. Then count the words in the first sentence of the request, exactly as it was written: a word is whatever stands between spaces (a lone symbol such as & may be counted or left out). Divide by three. A remainder of 0 selects (a), 1 selects (b), 2 selects (c). Quote the sentence and write the count and the result on the Chosen line, and build that direction even if another was your favorite. The name is not counted: a name you made up can be made to fit, and six one-line requests in a row came out with one first screen that way. `check.mjs` checks the count against the quoted sentence. If the user or an existing brand has already fixed the direction, there is nothing to choose and this step is skipped.
 
 **Rules make it real.** Each rule is something the Default would break: "color appears only on appointment gaps", "every figure is set in the condensed face at three times body size", "nothing is centered", "the schedule grid is the page grid". A direction that produces no such rules is only a label, and the page will come out as the Default wearing it. Carry the rules through the whole piece and keep everything else quiet. One device applied consistently reads as design; five devices read as noise.
 
@@ -133,19 +134,18 @@ A direction may call for more than an accent: a page flooded with one color, or 
 **The First screen line.** A generated landing page opens the same way almost every time: a small uppercase label above a two-line headline that ends in a full stop, a button beside a text link, and a picture on the right, often with a small interface card pinned to its corner. Eight of nine test pages built with earlier versions of this skill opened that way. Five of 38 well-known sites do. So:
 
 - Decide what the visitor sees first from what is being offered, using the table in `references/page-types.md`: software shows its interface at a readable size, a product shows itself large and whole, a service shows its people and work, a place shows its photograph, hours and address.
-- Choose the arrangement that suits that thing, from the compositions listed above. An interface wants the full width. A sentence strong enough can stand alone.
-- No uppercase or wide-tracked label above the main headline. If it says something the reader needs, put it in the headline or the line under it.
+- Take the arrangement from the thing the count selects on the First screen line, and compose the first screen as one field: the ground, the words, what shows the subject and the action belong to one picture. A white page with a headline and a box under it is the arrangement every build falls back to. An interface wants the full width.
+- No uppercase or wide-tracked label and no badge above the main headline. If it says something the reader needs, put it in the headline or the line under it.
 - The main headline says what the thing is and who or where it is for: the kind of product, service or place, in the customer's words. Cover the logo and read it alone. If it would fit a different kind of business, it is a slogan, and a business nobody has heard of cannot afford one. It does not need to be two lines, and it does not need a full stop. It is set in one style, with no italic fragment.
-- The headline has its row to itself. All 17 pages in one test run set it on the left, and 8 of them put a paragraph, a panel or a picture beside it. About half of well-known sites center the headline, and 10 of 39 put something beside it. Centered or left, what supports it goes underneath.
-- One main action, carried by one control. If the navigation carries it, the first screen does not repeat it as a button. A section linked from the navigation is not linked again a few lines lower.
+- The headline has its row to itself. All 17 pages in one test run set it on the left, and 8 of them put a paragraph, a panel or a picture beside it. About half of well-known sites center the headline, and 10 of 39 put something beside it.
+- One main action, carried by one control, and it sits with the headline. The navigation then carries links only: a filled button at the end of the top bar is on every generated page. A section linked from the navigation is not linked again a few lines lower.
 - No band of facts under the first screen. A row of three or four short facts in a strip (figures, a label over each value, capitals with ornaments between) sat under the first screen of 10 of this skill's 16 test pages and of none of 32 well-known sites. It is a stats bar, and with the words moving it would be a marquee. A fact goes where it is used: the one or two that decide a visit (when, where, how much) as a plain line in the first screen, the price beside the buy button, the hours beside the address. The rest is cut.
-- Centered words are a sound arrangement, and half of well-known sites use it. What sits under them is the real thing at a readable size, never a decoration. No badge above the headline.
 
 **The Picture line.** With no photograph to hand, a model generates a picture, and most often a drawing in an old print style: an engraved dog, an etched shopfront, a woodcut tool. It appeared on about two thirds of this skill's test pages, whatever the subject, usually as decoration beside the headline. So decide what the picture is for:
 
 - Software shows its interface, built in HTML at a size that can be read. No mascot, animal or scene beside it.
 - A product has to be seen. With no photograph supplied, one plain generated photograph stands in, and hand-over says it must be replaced.
-- A place or a service uses real photographs when they are supplied. With none, the first screen shows what it works on or how to find it, as a drawing that explains: a labeled diagram of the thing, a plan, a map. It does not invent photographs of the premises or the staff, and hand-over says which real photographs would help and where they would go.
+- A place or a service uses real photographs when they are supplied. With none, the first screen shows what it works on or how to find it, as a drawing that explains something a visitor needs and words cannot give. It does not invent photographs of the premises or the staff, and hand-over says which real photographs would help and where they would go.
 - A drawing explains something: a diagram, a map, a labeled part. It is never decoration, and never an engraving, etching, woodcut or pen-and-ink scene unless the Look line is supplied and asks for it, or the brand already uses that style.
 - "None" is the answer on a utility page, and for any section after the first screen. Outside utility the first screen shows the subject, not only names it, and `check.mjs` fails a Picture line that says none there. An empty space is still never filled with a prop built from HTML.
 - Nothing on the page is dressed as a physical object. No part of the interface is made to look like a sheet of paper, a folder, a ticket, a tag, a receipt or a note, and none of the trimmings that go with them appear: a block set at an angle, a paperclip, tape, a pin, a stamp, a perforation, a torn or notched edge, squared or dotted paper behind the content. Content sits upright in plain rectangles. The first eight pages built after the old-print drawing was ruled out replaced it with exactly these props on five of them.
@@ -306,7 +306,7 @@ These hold for every register. Details for specific kinds of interface are in `r
 - No icon and no number sits in a small box of its own. A tinted or bordered tile around an icon adds nothing to it, and a number in a tile is a number pretending to be an icon. Controls, a person's initials, a count after its words and the steps of a form's progress bar are not marks and keep their shape.
 - One icon family at one stroke weight. One icon size for each text size: 16px beside text up to 14px, 20px beside 16 to 18px text, 24px beside anything larger. Center each icon on its line of text, leave a gap of about half its width, and give it the text's own color unless it shows a status. An icon in a tile beside two lines of text is centered on the two lines. Icons support labels and rarely replace them.
 - Use the images the user supplied. Never reference an image URL you have not confirmed resolves; invented stock-photo URLs ship as broken images.
-- With no pictures supplied, follow the brief's Picture line: the built interface for software; one plain stand-in photograph for a product that has to be seen; for a place or a service, a drawing that explains (a labeled diagram, a plan, a map). Only a utility page goes without. A precise SVG or CSS drawing is for a diagram, chart, map, pattern or mark.
+- With no pictures supplied, follow the brief's Picture line: the built interface for software; one plain stand-in photograph for a product that has to be seen; for a place or a service, a drawing that explains. Only a utility page goes without. A precise SVG or CSS drawing is for a diagram, chart, map, pattern or mark.
 - A generated picture is a stand-in, never decoration. Use one only where the Picture line calls for it, in the plainest truthful medium, and say at hand-over that it was generated and has to be replaced. Do not generate people presented as real customers or staff, logos, or fake screenshots of the product.
 - SVG and CSS are for geometry: diagrams, charts, marks, patterns, linework. A scene of people, animals or objects assembled from SVG shapes reads as clip art. Use a real or generated image for a picture, or use no picture.
 - A picture keeps its own colors or is black and white. Do not print an illustration or photograph in the accent's ink: it spreads that hue over a large part of the screen.

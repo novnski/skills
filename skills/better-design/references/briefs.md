@@ -19,7 +19,7 @@ This file holds no filled-in brief on purpose. An example brief gets copied: its
 | Type, seen | It names lettering that people in this field actually read: the products they use, the signs and printed matter they see. |
 | Type, letters | The five letters that `check.mjs --letters` prints for the sentence quoted on the Chosen line, copied as printed. You did not choose them. |
 | Type, face | Each face is a loaded one (not Arial, Helvetica, Georgia or the system font, unless the Register is utility), has a name that starts with one of the five letters and is not on the reflex list, and each says what it takes from the lettering you saw. |
-| First screen | It says what the visitor sees first and where the words sit. The headline has its row to itself. It is not the Default's arrangement. |
+| First screen | Its `seen` part names how three real things in this field are laid out, and the arrangement is the one the count selects: it is not one of a stock of page layouts. It says what the visitor sees first and where the words sit, composed as one field with the action beside the headline. The headline has its row to itself. It is not the Default's arrangement. |
 | Headline | With the logo covered, a stranger could say what is sold and to whom. It would not fit a different kind of business. |
 | Action | It names one action and one control. Nothing else on the first screen leads to the same place. |
 | Concept (showpiece) | The sentence could not be said about a rival's page, and it changes what the visitor does or how the page is ordered. An idea that only changes how the page looks is a costume. |
@@ -27,7 +27,7 @@ This file holds no filled-in brief on purpose. An example brief gets copied: its
 | Moment (showpiece) | It names one thing the visitor does and what happens. It serves the Concept, and the page still works with it switched off. |
 | Object (piece) | It names one thing, says what it shows before anyone touches it, and says what each action changes on it. It is not a list of the page's parts. |
 | Moment (piece) | It names one thing the person does to the object and what happens. It could not be moved to a different piece unchanged. |
-| Picture | It names the one thing the first screen shows of the subject (the interface, a photograph, a labeled diagram, a map) and what that shows that the words cannot. It says none only when the Register is utility. |
+| Picture | It names the one thing the first screen shows of the subject (the interface, a photograph, a drawing that explains) and what that shows that the words cannot. It says none only when the Register is utility. |
 | Shape | It names one row of the radius table and one button shape, with a reason about the audience. |
 | Rules | Each rule can be checked by looking at the finished page. |
 
